@@ -4,5 +4,5 @@
 
 # SIAKAD
 
-Sistem Informasi Akademik Sekolah
+Sistem Informasi Akademik Sekolah.
 
