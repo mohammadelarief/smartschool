@@ -141,4 +141,24 @@ class Mutation_model extends CI_Model
             return false;
         }
     }
+
+    function penempatanbulk()
+    {
+        $datas = $this->input->post('msg', TRUE);
+        $arr_id = explode(",", $datas);
+        $datass = array();
+
+        $index = 0;
+        foreach ($arr_id as $nis) {
+            array_push($datass, array(
+                'idsiswa' => _unix_id("S"),
+                'idpdb' => $nis,
+                // 'idunit' => $this->input->post('unit', TRUE),
+                'idkelas' => $this->input->post('kelas', TRUE),
+                // 'status_daftar' => 1,
+            ));
+            $index++;
+        }
+        return $this->db->insert_batch('penempatan', $datass);
+    }
 }

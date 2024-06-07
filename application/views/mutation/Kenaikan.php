@@ -31,6 +31,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" style="margin-bottom: 10px">
+                        <div class="col-xs-12 text-right">
+                            <button class="btn btn-warning" type="submit"><i class="fas fa-share"></i> Proses</button>
+                        </div>
+                    </div>
                     <br>
                     <div class="row">
                         <div class="col-md-12">

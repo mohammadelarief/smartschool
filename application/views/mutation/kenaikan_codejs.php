@@ -65,13 +65,14 @@
                 }
             },
             columns: [{
-                    "data": "idstudent",
+                    "data": "personid",
                     "orderable": false,
                     "className": "text-center"
                 },
                 {
                     "data": "idstudent",
-                    "orderable": false
+                    "orderable": false,
+                    "className": "nilaiKedua"
                 }, {
                     "data": "personid",
                     "className": "text-center"
@@ -182,6 +183,51 @@
         });
         getkelasfilter();
         nextperiod();
+
+        $("#myform").on('submit', function(e) {
+            var form = this
+            var rowsel = t.column(0).checkboxes.selected();
+            var kelas = $("#next_class").val();
+            console.log("Selected Rows:", rowsel);
+            $.each(rowsel, function(index, rowId) {
+
+                $(form).append(
+                    $('<input>').attr('type', 'hidden').attr('name', 'personid[]').val(rowId)
+                )
+            });
+            if (kelas == "all") {
+                alertify.alert('', 'Silahkan Pilih Kelas Tujuan Terlebih Dahulu', function() {});
+            } else
+            if (rowsel.join(",") == "") {
+                alertify.alert('', 'Tidak ada data terpilih!', function() {});
+
+            } else {
+                var prompt = alertify.confirm('Apakah anda yakin akan memproses data tersebut?', 'Apakah anda yakin akan memproses data tersebut?').set('labels', {
+                    ok: 'Yakin',
+                    cancel: 'Batal!'
+                }).set('onok', function(closeEvent) {
+                    // console.log(rowsel.join(","));
+                    // $.ajax({
+                    //     url: "Kenaikan/naikbulk",
+                    //     type: "post",
+                    //     // data: "msg = " + rowsel.join(","),
+                    //     data: {
+                    //         msg: rowsel.join(","),
+                    //         kelas: kelas
+                    //     },
+                    //     success: function(response) {
+                    //         location.reload();
+                    //         if (response == true) {}
+                    //     },
+                    //     error: function(jqXHR, textStatus, errorThrown) {
+                    //         console.log(textStatus, errorThrown);
+                    //     }
+                    // });
+
+                });
+            }
+            $(".ajs-header").html("Konfirmasi");
+        });
 
     });
 
