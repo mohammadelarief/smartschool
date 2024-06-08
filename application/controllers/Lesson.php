@@ -60,8 +60,8 @@ class Lesson extends CI_Controller
                 $data = array(
 					'idlesson' => $this->input->post('idlesson',TRUE),
 					'period_id' => $this->input->post('period_id',TRUE),
-					'lesson_nick' => $this->input->post('lesson_nick',TRUE),
-					'name_lesson' => $this->input->post('name_lesson',TRUE),
+					'employee_id' => $this->input->post('employee_id',TRUE),
+					'subject_id' => $this->input->post('subject_id',TRUE),
 	    );
                 
                     $update = $this->Lesson_model->update($id, $data);
@@ -79,8 +79,8 @@ class Lesson extends CI_Controller
            $data = array(
 		'idlesson' => $this->input->post('idlesson',TRUE),
 		'period_id' => $this->input->post('period_id',TRUE),
-		'lesson_nick' => $this->input->post('lesson_nick',TRUE),
-		'name_lesson' => $this->input->post('name_lesson',TRUE),
+		'employee_id' => $this->input->post('employee_id',TRUE),
+		'subject_id' => $this->input->post('subject_id',TRUE),
 	    );
 if(! $this->Lesson_model->is_exist($this->input->post('idlesson'))){
                  
@@ -110,8 +110,8 @@ echo json_encode($data);
             $data = array(
 		'idlesson' => $row->idlesson,
 		'period_id' => $row->period_id,
-		'lesson_nick' => $row->lesson_nick,
-		'name_lesson' => $row->name_lesson,
+		'employee_id' => $row->employee_id,
+		'subject_id' => $row->subject_id,
 	    );
         $data['title'] = 'Lesson';
         $data['subtitle'] = '';
@@ -134,8 +134,8 @@ echo json_encode($data);
             'action' => site_url('lesson/create_action'),
 	    'idlesson' => set_value('idlesson'),
 	    'period_id' => set_value('period_id'),
-	    'lesson_nick' => set_value('lesson_nick'),
-	    'name_lesson' => set_value('name_lesson'),
+	    'employee_id' => set_value('employee_id'),
+	    'subject_id' => set_value('subject_id'),
 	);
         $data['title'] = 'Lesson';
         $data['subtitle'] = '';
@@ -157,8 +157,8 @@ echo json_encode($data);
             $data = array(
 		'idlesson' => $this->input->post('idlesson',TRUE),
 		'period_id' => $this->input->post('period_id',TRUE),
-		'lesson_nick' => $this->input->post('lesson_nick',TRUE),
-		'name_lesson' => $this->input->post('name_lesson',TRUE),
+		'employee_id' => $this->input->post('employee_id',TRUE),
+		'subject_id' => $this->input->post('subject_id',TRUE),
 	    );
 if(! $this->Lesson_model->is_exist($this->input->post('idlesson'))){
                 $this->Lesson_model->insert($data);
@@ -180,8 +180,8 @@ if(! $this->Lesson_model->is_exist($this->input->post('idlesson'))){
                 'action' => site_url('lesson/update_action'),
 		'idlesson' => set_value('idlesson', $row->idlesson),
 		'period_id' => set_value('period_id', $row->period_id),
-		'lesson_nick' => set_value('lesson_nick', $row->lesson_nick),
-		'name_lesson' => set_value('name_lesson', $row->name_lesson),
+		'employee_id' => set_value('employee_id', $row->employee_id),
+		'subject_id' => set_value('subject_id', $row->subject_id),
 	    );
             $data['title'] = 'Lesson';
         $data['subtitle'] = '';
@@ -207,8 +207,8 @@ if(! $this->Lesson_model->is_exist($this->input->post('idlesson'))){
             $data = array(
 		'idlesson' => $this->input->post('idlesson',TRUE),
 		'period_id' => $this->input->post('period_id',TRUE),
-		'lesson_nick' => $this->input->post('lesson_nick',TRUE),
-		'name_lesson' => $this->input->post('name_lesson',TRUE),
+		'employee_id' => $this->input->post('employee_id',TRUE),
+		'subject_id' => $this->input->post('subject_id',TRUE),
 	    );
 
             $this->Lesson_model->update($this->input->post('idlesson', TRUE), $data);
@@ -245,8 +245,8 @@ if(! $this->Lesson_model->is_exist($this->input->post('idlesson'))){
     {
 	$this->form_validation->set_rules('idlesson', 'idlesson', 'trim|required');
 	$this->form_validation->set_rules('period_id', 'period id', 'trim|required');
-	$this->form_validation->set_rules('lesson_nick', 'lesson nick', 'trim|required');
-	$this->form_validation->set_rules('name_lesson', 'name lesson', 'trim|required');
+	$this->form_validation->set_rules('employee_id', 'employee id', 'trim|required');
+	$this->form_validation->set_rules('subject_id', 'subject id', 'trim|required');
 
 	$this->form_validation->set_rules('idlesson', 'idlesson', 'trim');
 	$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');

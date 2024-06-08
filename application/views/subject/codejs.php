@@ -30,25 +30,25 @@
             processing: true,
             serverSide: true,
             ajax: {
-                "url": "lesson/json",
+                "url": "subject/json",
                 "type": "POST"
             },
             columns: [{
-                    "data": "idlesson",
+                    "data": "idsubject",
                     "orderable": false,
                     "className": "text-center"
                 },
                 {
-                    "data": "idlesson",
+                    "data": "idsubject",
                     "orderable": false
                 }, {
-                    "data": "idlesson"
+                    "data": "idsubject"
                 }, {
                     "data": "period_id"
                 }, {
-                    "data": "employee_id"
+                    "data": "nick_name"
                 }, {
-                    "data": "subject_id"
+                    "data": "full_name"
                 },
                 {
                     "data": "action",
@@ -101,7 +101,7 @@
                     cancel: 'Batal!'
                 }).set('onok', function(closeEvent) {
                     $.ajax({
-                        url: "lesson/deletebulk",
+                        url: "subject/deletebulk",
                         type: "post",
                         data: "msg = " + rowsel.join(","),
                         success: function(response) {
@@ -120,10 +120,10 @@
         });
         $('#add_button').click(function() {
             $('#form')[0].reset();
-            $('.modal-title').text("Tambah lesson");
+            $('.modal-title').text("Tambah subject");
             $('#action').val("Add");
             $('#actions').val("Add");
-            val = "LS";
+            val = "MP";
             $.ajax({
                 url: "<?= base_url('helpers/uniqid'); ?>",
                 type: "POST",
@@ -133,7 +133,7 @@
                 dataType: "json",
                 success: function(data) {
                     // console.log(data.hasil);
-                    $("[name='idlesson']").val(data.hasil);
+                    $("[name='idsubject']").val(data.hasil);
                 }
             });
         });
@@ -142,7 +142,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "<?php echo base_url('lesson/json_form'); ?>",
+            url: "<?php echo base_url('subject/json_form'); ?>",
             method: 'POST',
             data: new FormData(this),
             contentType: false,
@@ -183,12 +183,12 @@
     }
 
     function edit_data(id) {
-        $("#myModalLabel").text("Ubah Lesson");
+        $("#myModalLabel").text("Ubah Cfg_subject");
         $("#btn_simpan").attr("id", "btn_ubah");
         $("#btn_ubah").text("Ubah");
-        $("[name=idlesson]").attr("readonly", true);
+        $("[name=idsubject]").attr("readonly", true);
         $.ajax({
-            url: "<?php echo base_url('lesson/json_get'); ?>",
+            url: "<?php echo base_url('subject/json_get'); ?>",
             type: "POST",
             data: {
                 id: id
@@ -196,10 +196,10 @@
             dataType: "json",
             success: function(data) {
                 $("#ModalaForm").modal("show");
-                $("[name='idlesson']").val(data.idlesson);
+                $("[name='idsubject']").val(data.idsubject);
                 $("[name='period_id']").val(data.period_id);
-                $("[name='employee_id']").val(data.employee_id);
-                $("[name='subject_id']").val(data.subject_id);
+                $("[name='nick_name']").val(data.nick_name);
+                $("[name='full_name']").val(data.full_name);
                 $('#action').val("Edit");
                 $('#actions').val("Edit");
             }
@@ -208,16 +208,16 @@
     }
 
     function clear_data() {
-        $("[name=idlesson]").attr("readonly", false);
+        $("[name=idsubject]").attr("readonly", false);
         $('.modal-title').text("Tambah Tbl_siswa");
         $('#action').val("Add");
         $('#actions').val("Add");
         $("#btn_ubah").attr("id", "btn_simpan");
         $("#btn_simpan").text("Simpan");
-        $("[name='idlesson']").val("");
+        $("[name='idsubject']").val("");
         $("[name='period_id']").val("");
-        $("[name='employee_id']").val("");
-        $("[name='subject_id']").val("");
+        $("[name='nick_name']").val("");
+        $("[name='full_name']").val("");
         $(".form-group").toggleClass("has-success has-error", false);
         $(".text-danger").hide();
     }

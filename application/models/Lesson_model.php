@@ -17,7 +17,7 @@ class Lesson_model extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('idlesson,period_id,lesson_nick,name_lesson');
+        $this->datatables->select('idlesson,period_id,employee_id,subject_id');
         $this->datatables->from('lesson');
         //add this line for join
         //$this->datatables->join('table2', 'lesson.field = table2.field');
@@ -43,8 +43,8 @@ $this->datatables->add_column('action', '<button onclick="return edit_data(\'$1\
         $this->db->like('idlesson', $q);
 	$this->db->or_like('idlesson', $q);
 	$this->db->or_like('period_id', $q);
-	$this->db->or_like('lesson_nick', $q);
-	$this->db->or_like('name_lesson', $q);
+        $this->db->or_like('employee_id', $q);
+        $this->db->or_like('subject_id', $q);
 	$this->db->from($this->table);
         return $this->db->count_all_results();
     }
@@ -55,8 +55,8 @@ $this->datatables->add_column('action', '<button onclick="return edit_data(\'$1\
         $this->db->like('idlesson', $q);
 	$this->db->or_like('idlesson', $q);
 	$this->db->or_like('period_id', $q);
-	$this->db->or_like('lesson_nick', $q);
-	$this->db->or_like('name_lesson', $q);
+        $this->db->or_like('employee_id', $q);
+        $this->db->or_like('subject_id', $q);
 	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }

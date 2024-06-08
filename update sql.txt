@@ -1,0 +1,8 @@
+V-0.0.1
+1. Update Menu Kenaikan to Kenaikan & Kelulusan
+2. Add Child kenaikan and Kelulusan to Parent Kenaikan & Kelulusan
+3. Drop Table lesson and timetable
+4. Running timetable.sql
+5. Update link Menu Mapel to Subject
+6. Generate CRUD for table Lesson (ajax, no pk)
+7. Add Menu Lesson (Pelajaran)

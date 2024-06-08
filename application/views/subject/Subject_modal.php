@@ -4,33 +4,33 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" onclick="clear_data()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 class="modal-title" id="myModalLabel">Tambah Pelajaran</h3>
+                <h3 class="modal-title" id="myModalLabel">Tambah Mata Pelajaran</h3>
             </div>
             <form class="form-horizontal" method="post" id="form">
                 <div class="modal-body">
                     <!-- <div class="form-group">
-                        <label class="control-label col-xs-3">Idlesson</label>
+                        <label class="control-label col-xs-3">Idsubject</label>
                         <div class="col-xs-9">
                             </div>
                         </div> -->
-                    <input type="hidden" name="idlesson" id="idlesson" class="form-control" placeholder="Idlesson" />
+                    <input type="hidden" name="idsubject" id="idsubject" class="form-control" placeholder="Idsubject" readonly />
                     <div class="form-group">
-                        <label class="control-label col-xs-3">Period</label>
+                        <label class="control-label col-xs-3">Period Id</label>
                         <div class="col-xs-9">
                             <?= cmb_where('period_id', 'period', 'name_period', 'name_period', 'name_period', 'status'); ?>
                             <!-- <input type="text" name="period_id" id="period_id" class="form-control" placeholder="Period Id" /> -->
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-3">Employee Id</label>
+                        <label class="control-label col-xs-3">Nick Name</label>
                         <div class="col-xs-9">
-                            <input type="text" name="employee_id" id="employee_id" class="form-control" placeholder="Employee Id" />
+                            <input type="text" name="nick_name" id="nick_name" class="form-control" placeholder="Nick Name" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-3">Subject Id</label>
+                        <label class="control-label col-xs-3">Full Name</label>
                         <div class="col-xs-9">
-                            <input type="text" name="subject_id" id="subject_id" class="form-control" placeholder="Subject Id" />
+                            <input type="text" name="full_name" id="full_name" class="form-control" placeholder="Full Name" />
                         </div>
                     </div>
                 </div>

@@ -26,26 +26,26 @@
         </style>
 </head>
 <body>
-    <h3 align="center">DATA Lesson</h3>
+    <h3 align="center">DATA Cfg Subject</h3>
     <h4>Tanggal Cetak : <?= date("d/M/Y");?> </h4>
     <table class="word-table" style="margin-bottom: 10px">
             <tr>
                 <th>No</th>
-		<th>Idlesson</th>
+		<th>Idsubject</th>
 		<th>Period Id</th>
-		<th>Employee Id</th>
-		<th>Subject Id</th>
+		<th>Nick Name</th>
+		<th>Full Name</th>
 		
             </tr><?php
-            foreach ($lesson_data as $lesson)
+            foreach ($subject_data as $subject)
             {
                 ?>
                 <tr>
 		      <td><?php echo ++$start ?></td>
-		      <td><?php echo $lesson->idlesson ?></td>
-		      <td><?php echo $lesson->period_id ?></td>
-		      <td><?php echo $lesson->employee_id ?></td>
-		      <td><?php echo $lesson->subject_id ?></td>	
+		      <td><?php echo $subject->idsubject ?></td>
+		      <td><?php echo $subject->period_id ?></td>
+		      <td><?php echo $subject->nick_name ?></td>
+		      <td><?php echo $subject->full_name ?></td>	
                 </tr>
                 <?php
             }
