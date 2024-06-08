@@ -44,6 +44,11 @@ class Student extends CI_Controller
         header('Content-Type: application/json');
         echo $this->Student_model->json();
     }
+    public function json_naik()
+    {
+        header('Content-Type: application/json');
+        echo $this->Student_model->json_naik();
+    }
 
     // function get_kelas()
     // {

@@ -33,21 +33,37 @@ class Kenaikan extends CI_Controller
 
     public function naikbulk()
     {
-        // $idunit = $this->input->post('unit');
+        $this->db->trans_begin();
+        $datas = $this->input->post('msg', TRUE);
+        $arr_id = explode(",", $datas);
+        // $insert_data = array();
         $idkelas = $this->input->post('kelas');
-        // if ($idunit == 'all') {
-        //     $this->session->set_flashdata('message_error', 'Silahkan Pilih Unit terlebih dahulu');
-        // } else {
+
+        $index = 0;
+        foreach ($arr_id as $nis) {
+            $insert_data = array(
+                'idstudent' => _unix_id("S"),
+                'class_id' => $idkelas,
+                'personid' => $nis,
+                'status' => '1'
+            );
+            $s = $this->db->query("
+            SELECT * 
+            FROM student WHERE personid='{$nis}' and status = '1'
+            ")->row();
+            $ids = $s->idstudent;
+            $update_data = array(
+                'kenaikan' => '1',
+            );
+            $update = $this->Mutation_model->update_bulk($ids, $update_data);
+            $insert = $this->Mutation_model->insert_bulk($insert_data);
+            $index++;
+        }
+        
         if ($idkelas == 'all') {
             $this->session->set_flashdata('message_error', 'Silahkan Pilih Kelas terlebih dahulu');
         } else {
-            $this->db->trans_begin();
-            $insert = $this->Pdb_model->penempatanbulk();
-            if ($insert) {
-                $this->session->set_flashdata('message', 'Insert All Record Success');
-            } else {
-                $this->session->set_flashdata('message_error', 'Insert All Record failed');
-            }
+            
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
                 $this->session->set_flashdata('message', 'Terjadi kesalahan sistem, silahkan ulangi');
@@ -59,6 +75,5 @@ class Kenaikan extends CI_Controller
             }
             echo $insert;
         }
-        // }
     }
 }

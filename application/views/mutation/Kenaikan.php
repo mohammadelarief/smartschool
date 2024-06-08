@@ -26,8 +26,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <button type="submit" id="filter_get" class="btn btn-warning" style="display: none;">Apply Filter</button>
-                                <button type="submit" id="reset_filter" class="btn btn-danger" style="display: none;">Reset Filter</button>
+                                <button type="button" id="filter_get" class="btn btn-warning" style="display: none;">Apply Filter</button>
+                                <button type="button" id="reset_filter" class="btn btn-danger" style="display: none;">Reset Filter</button>
                             </div>
                         </div>
                     </div>

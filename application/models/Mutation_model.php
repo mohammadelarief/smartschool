@@ -161,4 +161,17 @@ class Mutation_model extends CI_Model
         }
         return $this->db->insert_batch('penempatan', $datass);
     }
+
+    function insert_bulk($data)
+    {
+        $this->db->insert('student', $data);
+        return $this->db->affected_rows() > 0;
+    }
+
+    function update_bulk($id, $data)
+    {
+        $this->db->where('idstudent', $id);
+        $this->db->update('student', $data);
+        return $this->db->affected_rows() > 0;
+    }
 }

@@ -33,6 +33,24 @@ class Student_model extends CI_Model
         $this->datatables->add_column('action', '<button onclick="return edit_data(\'$1\')" class="btn btn-xs btn-warning item_edit" data-id="$1"><i class="fa fa-edit"></i></button>' . "  " . anchor(site_url('student/delete/$1'), '<i class="fa fa-trash"></i>', 'class="btn btn-xs btn-danger" onclick="return confirmdelete(\'student/delete/$1\')" data-toggle="tooltip" title="Delete"'), 'idstudent');
         return $this->datatables->generate();
     }
+    function json_naik()
+    {
+        $periode = $this->input->post('periode');
+        $kelas = $this->input->post('kls');
+        $this->datatables->select('s.idstudent,s.class_id,s.personid,s.status,p.name,p.gender,c.name_class');
+        $this->datatables->from('student s');
+        //add this line for join
+        $this->datatables->join('class c', 'c.idclass = s.class_id');
+        $this->datatables->join('person p', 'p.numberid = s.personid');
+        $this->datatables->where("c.period_id='{$periode}'");
+        $this->datatables->where('s.status', '1');
+        $this->datatables->where('s.kenaikan', '0');
+        if ($kelas != 'all') {
+            $this->datatables->where("c.idclass='{$kelas}'");
+        }
+        $this->datatables->add_column('action', '<button onclick="return edit_data(\'$1\')" class="btn btn-xs btn-warning item_edit" data-id="$1"><i class="fa fa-edit"></i></button>' . "  " . anchor(site_url('student/delete/$1'), '<i class="fa fa-trash"></i>', 'class="btn btn-xs btn-danger" onclick="return confirmdelete(\'student/delete/$1\')" data-toggle="tooltip" title="Delete"'), 'idstudent');
+        return $this->datatables->generate();
+    }
 
     function get_class($prd)
     {

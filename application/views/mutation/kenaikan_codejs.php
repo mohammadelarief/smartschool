@@ -55,7 +55,7 @@
             serverSide: true,
             pageLength: 25,
             ajax: {
-                "url": "student/json",
+                "url": "student/json_naik",
                 "type": "POST",
                 data: function(data) {
                     data.periode = periode;
@@ -109,6 +109,8 @@
                 $('td:eq(1)', row).html(index);
             }
         });
+        getkelasfilter();
+        nextperiod();
         t1 = $("#mytabless").DataTable({
             initComplete: function() {
                 var api = this.api();
@@ -128,7 +130,7 @@
             serverSide: true,
             pageLength: 25,
             ajax: {
-                "url": "student/json",
+                "url": "student/json_naik",
                 "type": "POST",
                 data: function(data) {
                     data.periode = next_periode;
@@ -181,14 +183,17 @@
                 $('td:eq(1)', row).html(index);
             }
         });
-        getkelasfilter();
-        nextperiod();
 
+        $('#myform').keypress(function(e) {
+            if (e.which == 13) return false;
+
+        });
         $("#myform").on('submit', function(e) {
+            e.preventDefault();
             var form = this
             var rowsel = t.column(0).checkboxes.selected();
             var kelas = $("#next_class").val();
-            console.log("Selected Rows:", rowsel);
+            // console.log("Selected Rows:", rowsel);
             $.each(rowsel, function(index, rowId) {
 
                 $(form).append(
@@ -206,23 +211,23 @@
                     ok: 'Yakin',
                     cancel: 'Batal!'
                 }).set('onok', function(closeEvent) {
-                    // console.log(rowsel.join(","));
-                    // $.ajax({
-                    //     url: "Kenaikan/naikbulk",
-                    //     type: "post",
-                    //     // data: "msg = " + rowsel.join(","),
-                    //     data: {
-                    //         msg: rowsel.join(","),
-                    //         kelas: kelas
-                    //     },
-                    //     success: function(response) {
-                    //         location.reload();
-                    //         if (response == true) {}
-                    //     },
-                    //     error: function(jqXHR, textStatus, errorThrown) {
-                    //         console.log(textStatus, errorThrown);
-                    //     }
-                    // });
+                    console.log(rowsel.join(","));
+                    $.ajax({
+                        url: "Kenaikan/naikbulk",
+                        type: "post",
+                        // data: "msg = " + rowsel.join(","),
+                        data: {
+                            msg: rowsel.join(","),
+                            kelas: kelas
+                        },
+                        success: function(response) {
+                            location.reload();
+                            if (response == true) {}
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                        }
+                    });
 
                 });
             }
