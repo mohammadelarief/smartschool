@@ -151,7 +151,7 @@ class Menu extends CI_Controller
             $data['crumb'] = [
                 'Dashboard' => '',
             ];
-            $data["groups"] = $this->db->query("select * from groups")->result();
+            $data["groups"] = $this->db->query("select * from `groups`")->result();
 
             $data["menu_type"] = $this->db->query("select * from menu_type")->result();
             $data['code_js'] = 'menu/codejsform';

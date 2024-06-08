@@ -22,15 +22,19 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-3">Employee Id</label>
+                        <label class="control-label col-xs-3">Guru</label>
                         <div class="col-xs-9">
-                            <input type="text" name="employee_id" id="employee_id" class="form-control" placeholder="Employee Id" />
+                            <?= cmb_where('employee_id', 'employee', 'name', 'numberid', 'employee_id', 'status'); ?>
+                            <!-- <input type="text" name="employee_id" id="employee_id" class="form-control" placeholder="Employee Id" /> -->
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-3">Subject Id</label>
+                        <label class="control-label col-xs-3">Mata Pelajaran</label>
                         <div class="col-xs-9">
-                            <input type="text" name="subject_id" id="subject_id" class="form-control" placeholder="Subject Id" />
+                            <select name="subject_id" class="form-control select2" id="subject_id">
+                                <option value="" selected disabled hidden>- Pilih Mata Pelajaran -</option>
+                            </select>
+                            <!-- <input type="text" name="subject_id" id="subject_id" class="form-control" placeholder="Subject Id" /> -->
                         </div>
                     </div>
                 </div>

@@ -6,3 +6,6 @@ V-0.0.1
 5. Update link Menu Mapel to Subject
 6. Generate CRUD for table Lesson (ajax, no pk)
 7. Add Menu Lesson (Pelajaran)
+
+V-0.0.2
+1. Add Field type (Guru, Struktural) on Table Employee

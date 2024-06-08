@@ -40,12 +40,40 @@ if (!function_exists('cmb_where')) {
     function cmb_where($name, $table, $field, $pk, $selected = null, $where = null, $order = null)
     {
         $ci = get_instance();
-        $cmb = "<select name='$name' class='form-control filter select2' ids='" . $pk . "'>";
+        $cmb = '<select name="' . $name . '" class="form-control filter select2" ids="' . $pk . '">';
         if ($order) {
             $ci->db->order_by($field, $order);
         }
         $data = $ci->db->get_where($table, array($where => 1))->result();
         // $data = $ci->db->get($table)->result();
+        $cmb .= '<option selected="true" disabled="disabled">-- Pilih Satu --</option>';
+
+        foreach ($data as $d) {
+            $cmb .= "<option value='" . $d->$pk . "'";
+            $cmb .= $selected == $d->$pk ? " selected='selected'" : '';
+            $cmb .= ">" .  strtoupper($d->$field) . "</option>";
+        }
+        $cmb .= "</select>";
+        return $cmb;
+    }
+}
+if (!function_exists('cmb_where_multi')) {
+    function cmb_where_multi($name, $table, $field, $pk, $selected = null, $where = array(), $order = null)
+    {
+        $ci = get_instance();
+        $cmb = '<select name="' . $name . '" class="form-control filter select2" ids="' . $pk . '">';
+        if ($order) {
+            $ci->db->order_by($field, $order);
+        }
+        if (!empty($where)) {
+            foreach ($where as $key => $value) {
+                $ci->db->where($key, $value);
+            }
+        }
+
+        $data = $ci->db->get($table)->result();
+        // $data = $ci->db->get($table)->result();
+        $cmb .= '<option selected="true" disabled="disabled">-- Pilih Satu --</option>';
 
         foreach ($data as $d) {
             $cmb .= "<option value='" . $d->$pk . "'";

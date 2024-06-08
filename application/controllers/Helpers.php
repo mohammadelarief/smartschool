@@ -73,6 +73,16 @@ class Helpers extends CI_Controller
         echo $data;
     }
 
+    function get_subject($period)
+    {
+        $query = $this->db->get_where('cfg_subject', array('period_id' => $period));
+        $data = "<option value='' selected disabled hidden>- Pilih Mata Pelajaran -</option>";
+        foreach ($query->result() as $value) {
+            $data .= "<option value='" . $value->idsubject . "'>" . $value->nick_name . " - " . $value->full_name . "</option>";
+        }
+        echo $data;
+    }
+
     function get_filter_kelas()
     {
         $periode = $this->input->post('periode');

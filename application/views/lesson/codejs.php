@@ -137,6 +137,13 @@
                 }
             });
         });
+        $("[name=period_id]").change(function() {
+            // var employee = "<?php echo site_url('Helpers/get_employee'); ?>/" + $(this).val();
+            // $('#employee_id').load(employee);
+            var subject = "<?= site_url('Helpers/get_subject'); ?>/" + $(this).val();
+            $('#subject_id').load(subject);
+            return false;
+        })
     });
     $(document).on('submit', '#form', function(event) {
         event.preventDefault();
