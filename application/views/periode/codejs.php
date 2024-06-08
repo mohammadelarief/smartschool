@@ -75,7 +75,7 @@
                             if (data == "1") {
                                 text = "<button type='button' class='btn btn-success btn-xs'>Aktif</button>";
                             } else {
-                                text = "<button type='button' class='btn btn-danger btn-xs'>Nonaktif</button>";
+                                text = "<button type='button' class='update-status btn btn-danger btn-xs'>Nonaktif</button>";
                             }
                             data = text
                         }
@@ -136,6 +136,25 @@
                 });
             }
             $(".ajs-header").html("Konfirmasi");
+        });
+
+        $('#mytable').on('click', '.update-status', function() {
+            var data = t.row($(this).parents('tr')).data();
+            $.ajax({
+                url: "<?= base_url('periode/update_status') ?>",
+                type: "POST",
+                data: {
+                    id: data.id
+                },
+                success: function(response) {
+                    var result = JSON.parse(response);
+                    if (result.status === 'success') {
+                        t.ajax.reload();
+                    } else {
+                        alert('Error updating status');
+                    }
+                }
+            });
         });
         $('#add_button').click(function() {
             $('#form')[0].reset();

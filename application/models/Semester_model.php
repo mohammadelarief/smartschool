@@ -111,4 +111,15 @@ class Semester_model extends CI_Model
             return false;
         }
     }
+    public function activate_semester($id)
+    {
+        // Set all status to 0
+        $this->db->set('status', 0);
+        $this->db->update($this->table);
+
+        // Set status of the specified row to 1
+        $this->db->set('status', 1);
+        $this->db->where($this->id, $id);
+        $this->db->update($this->table);
+    }
 }

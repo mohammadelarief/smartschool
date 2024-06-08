@@ -36,6 +36,17 @@ class Periode extends CI_Controller
         echo $this->Periode_model->json();
     }
 
+    public function update_status()
+    {
+        $id = $this->input->post('id');
+        if ($id) {
+            $this->Periode_model->activate_period($id);
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
+
     public function json_get()
     {
         $id = $this->input->post("id");

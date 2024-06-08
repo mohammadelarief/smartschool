@@ -36,6 +36,17 @@ class Semester extends CI_Controller
         echo $this->Semester_model->json();
     }
 
+    public function update_status()
+    {
+        $id = $this->input->post('id');
+        if ($id) {
+            $this->Semester_model->activate_semester($id);
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
+
     public function json_get()
     {
         $id = $this->input->post("id");
