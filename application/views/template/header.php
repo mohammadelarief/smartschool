@@ -194,7 +194,7 @@
                       </a>
                       <ul class="treeview-menu">
                         <?php foreach ($menu2['children'] as $menu3) : ?>
-                          <li <?php echo $menu3['attr'] != '' ? ' id="' . $menu3['attr'] . '" ' : '' ?>>
+                          <li <?php echo $menu3['attr'] != '' ? ' id="' . $menu3['attr'] . '" ' : '' ?> <?php echo is_array($menu3['children']) ? ' class="treeview" ' : '' ?>>
                             <?php if (is_array($menu3['children'])) : ?>
                               <a href="<?php echo $menu3['link'] != '#' ? base_url($menu3['link']) : '#' ?>" class="name">
                                 <i class="<?php echo $menu3['icon'] ?>"></i> <span><?php echo $menu3['label'] ?></span>
