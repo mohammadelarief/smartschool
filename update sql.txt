@@ -9,3 +9,4 @@ V-0.0.1
 
 V-0.0.2
 1. Add Field type (Guru, Struktural) on Table Employee
+2. Add Field Class_id on table lesson
