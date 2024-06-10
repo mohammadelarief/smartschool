@@ -1,5 +1,5 @@
 <!-- MODAL FORM -->
-<div class="modal fade" id="ModalaForms" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+<div class="modal fade" id="ModalaForms" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,7 +55,7 @@
     </div>
 </div>
 
-<div class="modal fade modal-fullscreen" id="ModalaImport" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+<div class="modal fade modal-fullscreen" id="ModalaImport" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog modal-xl" style="margin: 15px;width:auto">
         <div class="modal-content">
             <div class="modal-header">
@@ -87,7 +87,7 @@
     </div>
 </div>
 
-<div class="modal fade modal-fullscreen" id="ModalaForm" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+<div class="modal fade modal-fullscreen" id="ModalaForm" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog modal-xl" style="margin: 15px;width:auto">
         <div class="modal-content">
             <div class="modal-header">
@@ -401,7 +401,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="ModalaMutation" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+<div class="modal fade" id="ModalaMutation" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog" style="margin: 15px;width:auto">
         <div class="modal-content">
             <div class="modal-header">
