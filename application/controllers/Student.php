@@ -32,6 +32,8 @@ class Student extends CI_Controller
         ];
         $get_mutation = $this->db->select('*')->from('cfg_mutation')->get();
         $data['mutation_cfg'] = $get_mutation->result();
+        $get_prov = $this->db->select('*')->from('ind_provinsi')->get();
+        $data['provinsi_ind'] = $get_prov->result();
         $data['filter'] = 'template/filter';
         $data['code_js'] = 'student/codejs';
         $data['page'] = 'student/Student_list';
