@@ -41,9 +41,11 @@
                 {
                     "data": "idsubject",
                     "orderable": false
-                }, {
-                    "data": "idsubject"
-                }, {
+                },
+                // {
+                //     "data": "idsubject"
+                // }, 
+                {
                     "data": "period_id"
                 }, {
                     "data": "nick_name"
@@ -120,7 +122,7 @@
         });
         $('#add_button').click(function() {
             $('#form')[0].reset();
-            $('.modal-title').text("Tambah subject");
+            $('.modal-title').text("Tambah Mata Pelajaran");
             $('#action').val("Add");
             $('#actions').val("Add");
             val = "MP";
@@ -183,7 +185,7 @@
     }
 
     function edit_data(id) {
-        $("#myModalLabel").text("Ubah Cfg_subject");
+        $("#myModalLabel").text("Ubah Mata Pelajaran");
         $("#btn_simpan").attr("id", "btn_ubah");
         $("#btn_ubah").text("Ubah");
         $("[name=idsubject]").attr("readonly", true);

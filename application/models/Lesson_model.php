@@ -18,10 +18,12 @@ class Lesson_model extends CI_Model
     // datatables
     function json()
     {
-        $this->datatables->select('idlesson,period_id,employee_id,subject_id');
-        $this->datatables->from('lesson');
+        $this->datatables->select('l.idlesson,l.period_id,l.class_id,l.employee_id,l.subject_id,c.name_class,e.name,concat(sub.nick_name," - ",sub.full_name) as subject');
+        $this->datatables->from('lesson l');
         //add this line for join
-        //$this->datatables->join('table2', 'lesson.field = table2.field');
+        $this->datatables->join('class c', 'c.idclass = l.class_id');
+        $this->datatables->join('employee e', 'e.numberid = l.employee_id');
+        $this->datatables->join('cfg_subject sub', 'sub.idsubject = l.subject_id');
         $this->datatables->add_column('action', '<button onclick="return edit_data(\'$1\')" class="btn btn-xs btn-warning item_edit" data-id="$1"><i class="fa fa-edit"></i></button>' . "  " . anchor(site_url('lesson/delete/$1'), '<i class="fa fa-trash"></i>', 'class="btn btn-xs btn-danger" onclick="return confirmdelete(\'lesson/delete/$1\')" data-toggle="tooltip" title="Delete"'), 'idlesson');
         return $this->datatables->generate();
     }

@@ -73,12 +73,13 @@ class Helpers extends CI_Controller
         echo $data;
     }
 
-    function get_subject($period)
+    function get_subject($period, $subject = null)
     {
         $query = $this->db->get_where('cfg_subject', array('period_id' => $period));
         $data = "<option value='' selected disabled hidden>- Pilih Mata Pelajaran -</option>";
         foreach ($query->result() as $value) {
-            $data .= "<option value='" . $value->idsubject . "'>" . $value->nick_name . " - " . $value->full_name . "</option>";
+            $selected = ($value->idsubject == $subject) ? 'selected' : '';
+            $data .= "<option value='" . $value->idsubject . "'$selected>" . $value->nick_name . " - " . $value->full_name . "</option>";
         }
         echo $data;
     }
@@ -88,6 +89,16 @@ class Helpers extends CI_Controller
         $data = "<option value='' selected disabled hidden>- Pilih Semester -</option>";
         foreach ($query->result() as $value) {
             $data .= "<option value='" . $value->idsemester . "'>" . $value->period_id . " - " . $value->description . "</option>";
+        }
+        echo $data;
+    }
+    function get_class($period, $class = null)
+    {
+        $query = $this->db->get_where('class', array('period_id' => $period));
+        $data = "<option value='' selected disabled hidden>- Pilih Kelas -</option>";
+        foreach ($query->result() as $value) {
+            $selected = ($value->idclass == $class) ? 'selected' : '';
+            $data .= "<option value='" . $value->idclass . "' $selected>" . $value->name_class . "</option>";
         }
         echo $data;
     }

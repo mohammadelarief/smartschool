@@ -32,10 +32,10 @@
                 <tr>
                   <th width=""></th>
                   <th width="10px">No</th>
-                  <th>Idsubject</th>
-                  <th>Period Id</th>
-                  <th>Nick Name</th>
-                  <th>Full Name</th>
+                  <!-- <th>Idsubject</th> -->
+                  <th>Periode</th>
+                  <th>Kode</th>
+                  <th>Mata Pelajaran</th>
 
                   <th width="80px">Action</th>
                 </tr>

@@ -41,14 +41,18 @@
                 {
                     "data": "idlesson",
                     "orderable": false
-                }, {
-                    "data": "idlesson"
-                }, {
+                },
+                // {
+                //     "data": "idlesson"
+                // }, 
+                {
                     "data": "period_id"
                 }, {
-                    "data": "employee_id"
+                    "data": "name_class"
                 }, {
-                    "data": "subject_id"
+                    "data": "name"
+                }, {
+                    "data": "subject"
                 },
                 {
                     "data": "action",
@@ -120,7 +124,7 @@
         });
         $('#add_button').click(function() {
             $('#form')[0].reset();
-            $('.modal-title').text("Tambah lesson");
+            $('.modal-title').text("Tambah Pelajaran");
             $('#action').val("Add");
             $('#actions').val("Add");
             val = "LS";
@@ -140,10 +144,17 @@
         $("[name=period_id]").change(function() {
             // var employee = "<?php echo site_url('Helpers/get_employee'); ?>/" + $(this).val();
             // $('#employee_id').load(employee);
+            var classes = "<?= site_url('Helpers/get_class'); ?>/" + $(this).val();
             var subject = "<?= site_url('Helpers/get_subject'); ?>/" + $(this).val();
             $('#subject_id').load(subject);
+            $('#class_id').load(classes);
             return false;
         })
+        $('#ModalaForm').on('hidden.bs.modal', function() {
+            // Reset the form
+            $('#class_id option').removeAttr('selected');
+            $('#form')[0].reset();
+        });
     });
     $(document).on('submit', '#form', function(event) {
         event.preventDefault();
@@ -189,8 +200,21 @@
         return false;
     }
 
+    // for edit_data
+    function get_periode_subject(period, data) {
+        var subject = "<?= site_url('Helpers/get_subject'); ?>/" + period + "/" + data;
+        $('#subject_id').load(subject);
+        return false;
+    }
+
+    function get_periode_class(period, data) {
+        var classes = "<?= site_url('Helpers/get_class'); ?>/" + period + "/" + data;
+        $('#class_id').load(classes);
+        return false;
+    }
+
     function edit_data(id) {
-        $("#myModalLabel").text("Ubah Lesson");
+        $("#myModalLabel").text("Ubah Pelajaran");
         $("#btn_simpan").attr("id", "btn_ubah");
         $("#btn_ubah").text("Ubah");
         $("[name=idlesson]").attr("readonly", true);
@@ -206,7 +230,10 @@
                 $("[name='idlesson']").val(data.idlesson);
                 $("[name='period_id']").val(data.period_id);
                 $("[name='employee_id']").val(data.employee_id);
+                $("[name='class_id']").val(data.class_id);
                 $("[name='subject_id']").val(data.subject_id);
+                get_periode_class(data.period_id, data.class_id);
+                get_periode_subject(data.period_id, data.subject_id);
                 $('#action').val("Edit");
                 $('#actions').val("Edit");
             }

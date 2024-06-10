@@ -15,20 +15,20 @@
                         </div> -->
                     <input type="hidden" name="idsubject" id="idsubject" class="form-control" placeholder="Idsubject" readonly />
                     <div class="form-group">
-                        <label class="control-label col-xs-3">Period Id</label>
+                        <label class="control-label col-xs-3">Periode</label>
                         <div class="col-xs-9">
                             <?= cmb_where('period_id', 'period', 'name_period', 'name_period', 'name_period', 'status'); ?>
                             <!-- <input type="text" name="period_id" id="period_id" class="form-control" placeholder="Period Id" /> -->
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-3">Nick Name</label>
+                        <label class="control-label col-xs-3">Kode Mapel</label>
                         <div class="col-xs-9">
                             <input type="text" name="nick_name" id="nick_name" class="form-control" placeholder="Nick Name" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-3">Full Name</label>
+                        <label class="control-label col-xs-3">Mata Pelajaran</label>
                         <div class="col-xs-9">
                             <input type="text" name="full_name" id="full_name" class="form-control" placeholder="Full Name" />
                         </div>
