@@ -1,5 +1,5 @@
 <!-- MODAL FORM -->
-<div class="modal fade" id="ModalaForm" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+<div class="modal fade" id="ModalaForm" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label class="control-label col-xs-3">Kelas</label>
                         <div class="col-xs-9">
-                            <select name="class_id" class="form-control select2" id="class_id">
+                            <select name="class_id" class="form-control select2" style="width: 100%;" id="class_id">
                                 <option value="" selected disabled hidden>- Pilih Kelas -</option>
                             </select>
                             <!-- <input type="text" name="subject_id" id="subject_id" class="form-control" placeholder="Subject Id" /> -->
@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label class="control-label col-xs-3">Mata Pelajaran</label>
                         <div class="col-xs-9">
-                            <select name="subject_id" class="form-control select2" id="subject_id">
+                            <select name="subject_id" class="form-control select2" style="width: 100%;" id="subject_id">
                                 <option value="" selected disabled hidden>- Pilih Mata Pelajaran -</option>
                             </select>
                             <!-- <input type="text" name="subject_id" id="subject_id" class="form-control" placeholder="Subject Id" /> -->

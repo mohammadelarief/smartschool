@@ -40,7 +40,7 @@ if (!function_exists('cmb_where')) {
     function cmb_where($name, $table, $field, $pk, $selected = null, $where = null, $order = null)
     {
         $ci = get_instance();
-        $cmb = '<select name="' . $name . '" class="form-control filter select2" id="' . $pk . '">';
+        $cmb = '<select class="form-control filter select2" name="' . $name . '"  style="width: 100%;" id="' . $pk . '">';
         if ($order) {
             $ci->db->order_by($field, $order);
         }
