@@ -329,6 +329,28 @@
                 tr.addClass('shown');
             }
         });
+
+        $("#provinsi").change(function() {
+            var url = "<?php echo site_url('Helpers/add_ajax_kab'); ?>/" + $(this).val();
+            $('#kabupaten').load(url);
+            return false;
+        })
+        $("#kabupaten").change(function() {
+            var url = "<?php echo site_url('Helpers/add_ajax_kec'); ?>/" + $(this).val();
+            $('#kecamatan').load(url);
+            return false;
+        })
+
+        $("#kecamatan").change(function() {
+            var url = "<?php echo site_url('Helpers/add_ajax_des'); ?>/" + $(this).val();
+            $('#kelurahan').load(url);
+            return false;
+        })
+        $("#kelurahan").change(function() {
+            var url = "<?php echo site_url('Helpers/add_ajax_kodepos'); ?>/" + $(this).val();
+            $('#zipcode').load(url);
+            return false;
+        })
     });
     $(document).on('submit', '#form', function(event) {
         event.preventDefault();
