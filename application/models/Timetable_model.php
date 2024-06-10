@@ -62,10 +62,11 @@ class Timetable_model extends CI_Model
         return $this->db->count_all_results() > 0;
     }
 
-    public function get_all_timetable()
+    public function get_all_timetable($id)
     {
         $this->db->select('*');
         $this->db->from('timetable');
+        $this->db->where('idtimetable', $id);
         $query = $this->db->get();
         return $query->result();
     }

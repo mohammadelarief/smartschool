@@ -21,6 +21,10 @@
             <div class="box-body">
                 <div class="col-md-12">
                     <form id="schedule-form" method="post" action="<?= site_url('timetable/save_timetable') ?>">
+                        <?php
+                        $segment1 = $this->uri->segment(3);
+                        ?>
+                        <input type="hidden" name="idtimetable" id="idtimetable" class="form-control" placeholder="Idtimetable" value="<?= $segment1; ?>" />
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">

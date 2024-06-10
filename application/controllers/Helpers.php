@@ -82,6 +82,15 @@ class Helpers extends CI_Controller
         }
         echo $data;
     }
+    function get_semester($period)
+    {
+        $query = $this->db->get_where('semester', array('period_id' => $period));
+        $data = "<option value='' selected disabled hidden>- Pilih Semester -</option>";
+        foreach ($query->result() as $value) {
+            $data .= "<option value='" . $value->idsemester . "'>" . $value->period_id . " - " . $value->description . "</option>";
+        }
+        echo $data;
+    }
 
     function get_filter_kelas()
     {

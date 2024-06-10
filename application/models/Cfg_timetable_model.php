@@ -3,11 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Lesson_model extends CI_Model
+class Cfg_timetable_model extends CI_Model
 {
 
-    public $table = 'lesson';
-    public $id = 'idlesson';
+    public $table = 'cfg_timetable';
+    public $id = 'id';
     public $order = 'DESC';
 
     function __construct()
@@ -18,12 +18,26 @@ class Lesson_model extends CI_Model
     // datatables
     function json()
     {
-        $this->datatables->select('idlesson,period_id,employee_id,subject_id');
-        $this->datatables->from('lesson');
+        $this->datatables->select('id,idtimetable,period_id,semester_id,keterangan,status');
+        $this->datatables->from('cfg_timetable');
         //add this line for join
-        //$this->datatables->join('table2', 'lesson.field = table2.field');
-        $this->datatables->add_column('action', '<button onclick="return edit_data(\'$1\')" class="btn btn-xs btn-warning item_edit" data-id="$1"><i class="fa fa-edit"></i></button>' . "  " . anchor(site_url('lesson/delete/$1'), '<i class="fa fa-trash"></i>', 'class="btn btn-xs btn-danger" onclick="return confirmdelete(\'lesson/delete/$1\')" data-toggle="tooltip" title="Delete"'), 'idlesson');
+        //$this->datatables->join('table2', 'cfg_timetable.field = table2.field');
+        $this->datatables->add_column('action', anchor(site_url('timetable/timetable/$2'), '<i class="fas fa-book-reader"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Jadwal"') . "  " . '<button onclick="return edit_data(\'$1\')" class="btn btn-xs btn-warning item_edit" data-id="$1"><i class="fa fa-edit"></i></button>', 'id,idtimetable');
         return $this->datatables->generate();
+    }
+
+    public function activate_timetable($id, $semester)
+    {
+        // Set all status to 0
+        $this->db->set('status', '0');
+        $this->db->where('semester_id', $semester);
+        $this->db->update($this->table);
+
+        // Set status of the specified row to 1
+        $this->db->set('status', '1');
+        $this->db->where($this->id, $id);
+        $this->db->where('semester_id', $semester);
+        $this->db->update($this->table);
     }
 
     // get all
@@ -43,11 +57,12 @@ class Lesson_model extends CI_Model
     // get total rows
     function total_rows($q = NULL)
     {
-        $this->db->like('idlesson', $q);
-        $this->db->or_like('idlesson', $q);
+        $this->db->like('id', $q);
+        $this->db->or_like('idtimetable', $q);
         $this->db->or_like('period_id', $q);
-        $this->db->or_like('employee_id', $q);
-        $this->db->or_like('subject_id', $q);
+        $this->db->or_like('semester_id', $q);
+        $this->db->or_like('keterangan', $q);
+        $this->db->or_like('status', $q);
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
@@ -56,11 +71,12 @@ class Lesson_model extends CI_Model
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('idlesson', $q);
-        $this->db->or_like('idlesson', $q);
+        $this->db->like('id', $q);
+        $this->db->or_like('idtimetable', $q);
         $this->db->or_like('period_id', $q);
-        $this->db->or_like('employee_id', $q);
-        $this->db->or_like('subject_id', $q);
+        $this->db->or_like('semester_id', $q);
+        $this->db->or_like('keterangan', $q);
+        $this->db->or_like('status', $q);
         $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
@@ -94,17 +110,5 @@ class Lesson_model extends CI_Model
         $arr_id = explode(",", $data);
         $this->db->where_in($this->id, $arr_id);
         return $this->db->delete($this->table);
-    }
-    //check pk data is exists 
-
-    function is_exist($id)
-    {
-        $query = $this->db->get_where($this->table, array($this->id => $id));
-        $count = $query->num_rows();
-        if ($count > 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
