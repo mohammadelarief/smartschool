@@ -29,7 +29,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="select-day">Pilih Hari:</label>
-                                    <select id="select-day" class="form-control">
+                                    <select id="select-day" class="form-control select2" style="width: 100%;">
                                         <option value="all">Semua Hari</option>
                                         <?php
                                         $days = ['SABTU', 'MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT'];
@@ -43,7 +43,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="select-class">Pilih Tingkat Kelas:</label>
-                                    <select id="select-class" class="form-control">
+                                    <select id="select-class" class="form-control select2" style="width: 100%;">
                                         <option value="all">Semua Kelas</option>
                                         <?php
                                         foreach ($jenjang as $class) {
@@ -91,7 +91,7 @@
                                         }
                                         // echo $selected_subject;
                                         echo "<td class='day-column day-$dayIndex'>
-                                                <select class='form-control' name='schedule[{$class->idclass}][$dayIndex][$i]'>
+                                                <select class='form-control select2' style='width: 100%;' name='schedule[{$class->idclass}][$dayIndex][$i]'>
                                                     <option value='' selected disabled hidden></option>";
                                         foreach ($subjects[$class->idclass] as $subject) {
                                             $selected = ($subject->idlesson == $selected_subject) ? 'selected' : '';

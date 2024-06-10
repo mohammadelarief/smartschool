@@ -438,7 +438,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3">Jenis Mutasi</label>
                                 <div class="col-xs-9">
-                                    <select name="cfg_mutation_id" class="form-control select2" id="cfg_mutation_id">
+                                    <select name="cfg_mutation_id" class="form-control select2" style="width: 100%;" id="cfg_mutation_id">
                                         <option value="" selected disabled hidden>- Pilih Jenis Mutasi -</option>
                                         <?php
                                         foreach ($mutation_cfg as $cfg_m) {

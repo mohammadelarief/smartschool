@@ -185,7 +185,7 @@ if (!function_exists('cmb_where_select2')) {
 if (!function_exists('select_input')) {
     function select_input($name, $selected_value, $options)
     {
-        $select = '<select id="' . $name . '"name="' . $name . '" class="form-control">';
+        $select = '<select id="' . $name . '"name="' . $name . '" class="form-control select2" style="width: 100%;">';
         $select .= '<option selected="true" disabled="disabled">-- Pilih Satu --</option>';
         foreach ($options as $value => $label) {
             $selected = ($selected_value == $value) ? 'selected' : '';

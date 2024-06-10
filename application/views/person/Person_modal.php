@@ -1,5 +1,5 @@
 <!-- MODAL FORM -->
-<div class="modal fade modal-fullscreen" id="ModalaForm" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+<div class="modal fade modal-fullscreen" id="ModalaForm" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog modal-xl" style="margin: 15px;width:auto">
         <div class="modal-content">
             <div class="modal-header">
@@ -226,44 +226,9 @@
                             <div class="row">
                                 <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="control-label col-xs-3">DUSUN</label>
-                                        <div class="col-xs-9">
-                                            <input type="text" name="dusun" id="dusun" class="form-control" placeholder="Dusun" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-xs-3">KELURAHAN</label>
-                                        <div class="col-xs-9">
-                                            <select name="kelurahan" class="form-control select2" id="kelurahan">
-                                                <option value="" selected disabled hidden>- Pilih Kelurahan -</option>
-                                            </select>
-                                            <!-- <input type="text" name="kelurahan" id="kelurahan" class="form-control" placeholder="Kelurahan" /> -->
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-xs-3">KECAMATAN</label>
-                                        <div class="col-xs-9">
-                                            <select name="kecamatan" class="form-control select2" id="kecamatan">
-                                                <option value="" selected disabled hidden>- Pilih Kecamatan -</option>
-                                            </select>
-                                            <!-- <input type="text" name="kecamatan" id="kecamatan" class="form-control" placeholder="Kecamatan" /> -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-xs-3">KABUPATEN</label>
-                                        <div class="col-xs-9">
-                                            <select name="kabupaten" class="form-control select2" id="kabupaten">
-                                                <option value="" selected disabled hidden>- Pilih Kabupaten -</option>
-                                            </select>
-                                            <!-- <input type="text" name="kabupaten" id="kabupaten" class="form-control" placeholder="Kabupaten" /> -->
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
                                         <label class="control-label col-xs-3">PROVINSI</label>
                                         <div class="col-xs-9">
-                                            <select name="provinsi" class="form-control select2" id="provinsi">
+                                            <select name="provinsi" class="form-control select2" style="width: 100%;" id="provinsi">
                                                 <option value="" selected disabled hidden>- Pilih Provinsi -</option>
                                                 <?php
                                                 foreach ($provinsi_ind as $prov) {
@@ -275,9 +240,45 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="control-label col-xs-3">KABUPATEN</label>
+                                        <div class="col-xs-9">
+                                            <select name="kabupaten" class="form-control select2" style="width: 100%;" id="kabupaten">
+                                                <option value="" selected disabled hidden>- Pilih Kabupaten -</option>
+                                            </select>
+                                            <!-- <input type="text" name="kabupaten" id="kabupaten" class="form-control" placeholder="Kabupaten" /> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3">KECAMATAN</label>
+                                        <div class="col-xs-9">
+                                            <select name="kecamatan" class="form-control select2" style="width: 100%;" id="kecamatan">
+                                                <option value="" selected disabled hidden>- Pilih Kecamatan -</option>
+                                            </select>
+                                            <!-- <input type="text" name="kecamatan" id="kecamatan" class="form-control" placeholder="Kecamatan" /> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3">KELURAHAN</label>
+                                        <div class="col-xs-9">
+                                            <select name="kelurahan" class="form-control select2" style="width: 100%;" id="kelurahan">
+                                                <option value="" selected disabled hidden>- Pilih Kelurahan -</option>
+                                            </select>
+                                            <!-- <input type="text" name="kelurahan" id="kelurahan" class="form-control" placeholder="Kelurahan" /> -->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3">DUSUN</label>
+                                        <div class="col-xs-9">
+                                            <input type="text" name="dusun" id="dusun" class="form-control" placeholder="Dusun" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="control-label col-xs-3">KODEPOS</label>
                                         <div class="col-xs-9">
-                                            <select name="zipcode" class="form-control select2" id="zipcode">
+                                            <select name="zipcode" class="form-control select2" style="width: 100%;" id="zipcode">
                                                 <option value="" selected disabled hidden>- Pilih Kode Pos -</option>
                                             </select>
                                             <!-- <input type="text" name="zipcode" id="zipcode" class="form-control" placeholder="Zipcode" /> -->

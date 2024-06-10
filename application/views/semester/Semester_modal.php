@@ -1,5 +1,5 @@
 <!-- MODAL FORM -->
-<div class="modal fade" id="ModalaForm" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+<div class="modal fade" id="ModalaForm" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,14 +8,9 @@
             </div>
             <form class="form-horizontal" method="post" id="form">
                 <div class="modal-body">
+                    <input type="hidden" name="idsemester" id="idsemester" class="form-control" placeholder="Idsemester" readonly />
                     <div class="form-group">
-                        <label class="control-label col-xs-3">Idsemester</label>
-                        <div class="col-xs-9">
-                            <input type="text" name="idsemester" id="idsemester" class="form-control" placeholder="Idsemester" readonly />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-3">Period Id</label>
+                        <label class="control-label col-xs-3">Periode</label>
                         <div class="col-xs-9">
                             <?php
                             // $name, $table, $field, $pk, $field_where, $value_where, $selected, $order = null

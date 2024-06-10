@@ -1,7 +1,7 @@
 <?php
 $string = "
 <!-- MODAL FORM -->
-<div class=\"modal fade\" id=\"ModalaForm\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"largeModal\" aria-hidden=\"true\">
+<div class=\"modal fade\" id=\"ModalaForm\" role=\"dialog\" aria-labelledby=\"largeModal\" aria-hidden=\"true\">
             <div class=\"modal-dialog\">
             <div class=\"modal-content\">
             <div class=\"modal-header\">
