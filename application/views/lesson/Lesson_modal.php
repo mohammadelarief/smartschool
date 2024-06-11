@@ -17,15 +17,17 @@
                     <div class="form-group">
                         <label class="control-label col-xs-3">Periode</label>
                         <div class="col-xs-9">
-                            <?= cmb_where('period_id', 'period', 'name_period', 'name_period', 'name_period', 'status'); ?>
-                            <!-- <input type="text" name="period_id" id="period_id" class="form-control" placeholder="Period Id" /> -->
+                            <select name="period_id" class="form-control select2" style="width: 100%;" id="period_id">
+                                <option value="" selected disabled hidden>- Pilih Periode -</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-3">Guru</label>
                         <div class="col-xs-9">
-                            <?= cmb_where('employee_id', 'employee', 'name', 'numberid', 'employee_id', 'status'); ?>
-                            <!-- <input type="text" name="employee_id" id="employee_id" class="form-control" placeholder="Employee Id" /> -->
+                            <select name="employee_id" class="form-control select2" style="width: 100%;" id="employee_id">
+                                <option value="" selected disabled hidden>- Pilih Periode -</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">

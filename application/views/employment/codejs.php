@@ -70,6 +70,22 @@
                     checkboxes: {
                         selectRow: true,
                     }
+                },
+                {
+                    "targets": 7,
+                    "data": "",
+                    "mRender": function(data, type, row) {
+                        var text = "";
+                        if (type == "display") {
+                            if (data == "1") {
+                                text = "<button type='button' class='btn btn-success btn-xs'>Aktif</button>";
+                            } else {
+                                text = "<button type='button' class='btn btn-danger btn-xs'>Nonaktif</button>";
+                            }
+                            data = text
+                        }
+                        return data;
+                    },
                 }
 
             ],

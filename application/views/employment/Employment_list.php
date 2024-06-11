@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">List Employee</h3>
+        <h3 class="box-title">Daftar Pegawai</h3>
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fa fa-minus"></i></button>
@@ -32,11 +32,11 @@
                 <tr>
                   <th width=""></th>
                   <th width="10px">No</th>
-                  <th>Name</th>
-                  <th>Numberid</th>
-                  <th>Nip</th>
-                  <th>Nipy</th>
-                  <th>Gender</th>
+                  <th>Nama</th>
+                  <th>NIP Internal</th>
+                  <th>NIP</th>
+                  <th>NIP Yayasan</th>
+                  <th>Jenis Kelamin</th>
                   <th>Status</th>
 
                   <!-- <th width="80px">Action</th> -->

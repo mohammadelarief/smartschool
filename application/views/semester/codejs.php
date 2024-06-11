@@ -41,9 +41,11 @@
                 {
                     "data": "idsemester",
                     "orderable": false
-                }, {
-                    "data": "idsemester"
-                }, {
+                },
+                // {
+                //     "data": "idsemester"
+                // }, 
+                {
                     "data": "period_id"
                 }, {
                     "data": "description"
@@ -54,11 +56,11 @@
                 }, {
                     "data": "status"
                 },
-                {
-                    "data": "action",
-                    "orderable": false,
-                    "className": "text-center"
-                }
+                // {
+                //     "data": "action",
+                //     "orderable": false,
+                //     "className": "text-center"
+                // }
             ],
             columnDefs: [{
                     className: "text-center",
@@ -68,7 +70,7 @@
                     }
                 },
                 {
-                    "targets": 7,
+                    "targets": 6,
                     "data": "",
                     "mRender": function(data, type, row) {
                         var text = "";

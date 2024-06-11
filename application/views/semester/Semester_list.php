@@ -32,14 +32,14 @@
                 <tr>
                   <th width=""></th>
                   <th width="10px">No</th>
-                  <th>Idsemester</th>
+                  <!-- <th>Idsemester</th> -->
                   <th>Periode</th>
                   <th>Description</th>
                   <th>Start Date</th>
                   <th>End Date</th>
                   <th>Status</th>
 
-                  <th width="80px">Action</th>
+                  <!-- <th width="80px">Action</th> -->
                 </tr>
               </thead>
 

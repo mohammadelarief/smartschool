@@ -150,6 +150,8 @@
         // });
         $('#add_button').click(function() {
             $('#form')[0].reset();
+            clear_data();
+            get_periode();
             $('.modal-title').text("Tambah Pelajaran");
             $('#action').val("Add");
             $('#actions').val("Add");
@@ -166,20 +168,18 @@
                     $("[name='idlesson']").val(data.hasil);
                 }
             });
+            $("[name=period_id]").change(function() {
+                var classes = "<?= site_url('Helpers/get_class'); ?>/" + $(this).val();
+                var subject = "<?= site_url('Helpers/get_subject'); ?>/" + $(this).val();
+                $('#subject_id').load(subject);
+                $('#class_id').load(classes);
+                return false;
+            })
         });
-        $("[name=period_id]").change(function() {
-            // var employee = "<?php echo site_url('Helpers/get_employee'); ?>/" + $(this).val();
-            // $('#employee_id').load(employee);
-            var classes = "<?= site_url('Helpers/get_class'); ?>/" + $(this).val();
-            var subject = "<?= site_url('Helpers/get_subject'); ?>/" + $(this).val();
-            $('#subject_id').load(subject);
-            $('#class_id').load(classes);
-            return false;
-        })
         $('#ModalaForm').on('hidden.bs.modal', function() {
             // Reset the form
-            $('#class_id option').removeAttr('selected');
-            $('#form')[0].reset();
+            // $('#form')[0].reset();
+            clear_data();
         });
     });
     $(document).on('submit', '#form', function(event) {
@@ -250,16 +250,56 @@
     }
 
     // for edit_data
+    function get_periode() {
+        var periode = "<?= site_url('Helpers/get_period'); ?>";
+        return new Promise((resolve, reject) => {
+            $('#period_id').load(periode, function(response, status, xhr) {
+                if (status == "success") {
+                    resolve();
+                } else {
+                    reject();
+                }
+            });
+        });
+    }
+
+    function get_employee() {
+        var employee = "<?= site_url('Helpers/get_employee'); ?>";
+        return new Promise((resolve, reject) => {
+            $('#employee_id').load(employee, function(response, status, xhr) {
+                if (status == "success") {
+                    resolve();
+                } else {
+                    reject();
+                }
+            });
+        });
+    }
+
     function get_periode_subject(period, data) {
         var subject = "<?= site_url('Helpers/get_subject'); ?>/" + period + "/" + data;
-        $('#subject_id').load(subject);
-        return false;
+        return new Promise((resolve, reject) => {
+            $('#subject_id').load(subject, function(response, status, xhr) {
+                if (status == "success") {
+                    resolve();
+                } else {
+                    reject();
+                }
+            });
+        });
     }
 
     function get_periode_class(period, data) {
         var classes = "<?= site_url('Helpers/get_class'); ?>/" + period + "/" + data;
-        $('#class_id').load(classes);
-        return false;
+        return new Promise((resolve, reject) => {
+            $('#class_id').load(classes, function(response, status, xhr) {
+                if (status == "success") {
+                    resolve();
+                } else {
+                    reject();
+                }
+            });
+        });
     }
 
     function edit_data(id) {
@@ -277,12 +317,18 @@
             success: function(data) {
                 $("#ModalaForm").modal("show");
                 $("[name='idlesson']").val(data.idlesson);
-                $("[name='period_id']").val(data.period_id);
-                $("[name='employee_id']").val(data.employee_id);
-                $("[name='class_id']").val(data.class_id);
-                $("[name='subject_id']").val(data.subject_id);
-                get_periode_class(data.period_id, data.class_id);
-                get_periode_subject(data.period_id, data.subject_id);
+                Promise.all([get_periode(), get_employee()]).then(() => {
+                    $('#period_id').val(data.period_id).trigger('change');
+                    $('#employee_id').val(data.employee_id).trigger('change');
+                    return get_periode_class(data.period_id, data.class_id);
+                }).then(() => {
+                    $('#class_id').val(data.class_id).trigger('change');
+                    return get_periode_subject(data.period_id, data.subject_id);
+                }).then(() => {
+                    $('#subject_id').val(data.subject_id).trigger('change');
+                }).catch((error) => {
+                    console.error('An error occurred:', error);
+                });
                 $('#action').val("Edit");
                 $('#actions').val("Edit");
             }
@@ -298,9 +344,9 @@
         $("#btn_ubah").attr("id", "btn_simpan");
         $("#btn_simpan").text("Simpan");
         $("[name='idlesson']").val("");
-        $("[name='period_id']").val("");
-        $("[name='employee_id']").val("");
-        $("[name='subject_id']").val("");
+        $('#employee_id').val('').trigger('change');
+        $('#subject_id').val('').trigger('change');
+        $('#class_id').val('').trigger('change');
         $(".form-group").toggleClass("has-success has-error", false);
         $(".text-danger").hide();
     }

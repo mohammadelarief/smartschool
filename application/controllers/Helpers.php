@@ -83,6 +83,25 @@ class Helpers extends CI_Controller
         }
         echo $data;
     }
+    function get_period()
+    {
+        $query = $this->db->get('period');
+        $data = "<option value='' selected disabled hidden>- Pilih Periode -</option>";
+        foreach ($query->result() as $value) {
+            $data .= "<option value='" . $value->name_period . "'>" . $value->name_period . "</option>";
+        }
+        echo $data;
+    }
+    function get_employee()
+    {
+        $query = $this->db->get('employee');
+        $data = "<option value='' selected disabled hidden>- Pilih Guru -</option>";
+        foreach ($query->result() as $value) {
+            $data .= "<option value='" . $value->numberid . "'>" . $value->name . "</option>";
+        }
+        echo $data;
+    }
+
     function get_semester($period)
     {
         $query = $this->db->get_where('semester', array('period_id' => $period));
