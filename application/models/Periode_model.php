@@ -101,11 +101,11 @@ class Periode_model extends CI_Model
     public function activate_period($id)
     {
         // Set all status to 0
-        $this->db->set('status', 0);
+        $this->db->set('status', '0');
         $this->db->update($this->table);
 
         // Set status of the specified row to 1
-        $this->db->set('status', 1);
+        $this->db->set('status', '1');
         $this->db->where($this->id, $id);
         $this->db->update($this->table);
     }
