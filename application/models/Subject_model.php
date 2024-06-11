@@ -18,8 +18,11 @@ class Subject_model extends CI_Model
     // datatables
     function json()
     {
+        $periode = $this->input->post('periode');
         $this->datatables->select('idsubject,period_id,nick_name,full_name');
         $this->datatables->from('cfg_subject');
+
+        $this->datatables->where("period_id='{$periode}'");
         //add this line for join
         //$this->datatables->join('table2', 'cfg_subject.field = table2.field');
         $this->datatables->add_column('action', '<button onclick="return edit_data(\'$1\')" class="btn btn-xs btn-warning item_edit" data-id="$1"><i class="fa fa-edit"></i></button>' . "  " . anchor(site_url('subject/delete/$1'), '<i class="fa fa-trash"></i>', 'class="btn btn-xs btn-danger" onclick="return confirmdelete(\'subject/delete/$1\')" data-toggle="tooltip" title="Delete"'), 'idsubject');

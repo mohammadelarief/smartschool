@@ -25,6 +25,7 @@ class Lesson extends CI_Controller
         ];
         $data['code_js'] = 'lesson/codejs';
         $data['page'] = 'lesson/Lesson_list';
+        $data['filter'] = 'template/filter';
         $data['modal'] = 'lesson/Lesson_modal';
         $this->load->view('template/backend', $data);
     }

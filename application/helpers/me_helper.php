@@ -40,7 +40,7 @@ if (!function_exists('cmb_where')) {
     function cmb_where($name, $table, $field, $pk, $selected = null, $where = null, $order = null)
     {
         $ci = get_instance();
-        $cmb = '<select class="form-control filter select2" name="' . $name . '"  style="width: 100%;" id="' . $pk . '">';
+        $cmb = '<select class="form-control filter" name="' . $name . '"  style="width: 100%;" ids="' . $pk . '">';
         if ($order) {
             $ci->db->order_by($field, $order);
         }
@@ -185,7 +185,7 @@ if (!function_exists('cmb_where_select2')) {
 if (!function_exists('select_input')) {
     function select_input($name, $selected_value, $options)
     {
-        $select = '<select id="' . $name . '"name="' . $name . '" class="form-control select2" style="width: 100%;">';
+        $select = '<select id="' . $name . '"name="' . $name . '" class="form-control" style="width: 100%;">';
         $select .= '<option selected="true" disabled="disabled">-- Pilih Satu --</option>';
         foreach ($options as $value => $label) {
             $selected = ($selected_value == $value) ? 'selected' : '';

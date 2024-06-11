@@ -21,7 +21,7 @@
     <div class="col-sm-4 form-horizontal">
         <?php
         $uri = $this->uri->segment(1);
-        if ($uri == "student") {
+        if ($uri == "student" || $uri == "lesson") {
             echo '
         <div class="form-group" style="margin-bottom: 5px; margin-top: 5px">
             <label for="inputEmail3" class="col-sm-5 control-label">Kelas</label>

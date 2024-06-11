@@ -14,6 +14,7 @@
       <div class="box-body">
 
         <form id="myform" method="post" onsubmit="return false">
+          <?php (isset($filter) ? $this->load->view($filter) : ""); ?>
 
           <div class="row" style="margin-bottom: 10px">
             <div class="col-xs-12 col-md-4"><a href="#" id="add_button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#ModalaForm"><span class="fa fa-plus"></span> Create</a></div>

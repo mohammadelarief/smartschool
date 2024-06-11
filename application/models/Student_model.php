@@ -25,8 +25,8 @@ class Student_model extends CI_Model
         //add this line for join
         $this->datatables->join('class c', 'c.idclass = s.class_id');
         $this->datatables->join('person p', 'p.numberid = s.personid');
-        $this->datatables->where("c.period_id='{$periode}'");
         $this->datatables->where('s.status', '1');
+        $this->datatables->where("c.period_id='{$periode}'");
         if ($kelas != 'all') {
             $this->datatables->where("c.idclass='{$kelas}'");
         }

@@ -25,6 +25,7 @@ class Subject extends CI_Controller
         ];
         $data['code_js'] = 'subject/codejs';
         $data['page'] = 'subject/Subject_list';
+        $data['filter'] = 'template/filter';
         $data['modal'] = 'subject/Subject_modal';
         $this->load->view('template/backend', $data);
     }

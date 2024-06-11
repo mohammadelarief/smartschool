@@ -12,7 +12,7 @@
       </div>
 
       <div class="box-body">
-
+        <?php (isset($filter) ? $this->load->view($filter) : ""); ?>
         <form id="myform" method="post" onsubmit="return false">
 
           <div class="row" style="margin-bottom: 10px">

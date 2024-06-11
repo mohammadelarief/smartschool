@@ -1,4 +1,28 @@
 <script type="text/javascript">
+    let periode = $("#name_period").val()
+    // kls = $("#idkelas").val(),
+    // jenjang = $("#jenjang").val()
+    $('#name_period').change(function() {
+        $("#filter_get").click();
+        // getkelasfilter();
+    });
+    $('#idkelas').change(function() {
+        $("#filter_get").click();
+    });
+    $('#filter_get').click(function() {
+        periode = $("#name_period").val();
+        // unit = $("#idunit").val();
+        // kls = $("#idkelas").val();
+        t.ajax.reload();
+    });
+    $('#reset_filter').click(function() {
+        // $("#idunit").val('all').trigger("change");
+        // $("#idkelas").val('all').trigger("change");
+        periode = $("#name_period").val();
+        // unit = $("#idunit").val();
+        // kls = $("#idkelas").val();
+        t.ajax.reload();
+    });
     $(document).ready(function() {
         $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings) {
             return {
@@ -26,12 +50,17 @@
             oLanguage: {
                 sProcessing: "loading..."
             },
+            pageLength: 50,
             scrollCollapse: true,
             processing: true,
             serverSide: true,
             ajax: {
                 "url": "subject/json",
-                "type": "POST"
+                "type": "POST",
+                data: function(data) {
+                    data.periode = periode;
+                    return data;
+                }
             },
             columns: [{
                     "data": "idsubject",
@@ -71,7 +100,7 @@
                 style: 'multi'
             },
             order: [
-                [1, 'desc']
+                [3, 'asc']
             ],
             rowCallback: function(row, data, iDisplayIndex) {
                 var info = this.fnPagingInfo();
@@ -81,45 +110,45 @@
                 $('td:eq(1)', row).html(index);
             }
         });
-        $('#myform').keypress(function(e) {
-            if (e.which == 13) return false;
+        // $('#myform').keypress(function(e) {
+        //     if (e.which == 13) return false;
 
-        });
-        $("#myform").on('submit', function(e) {
-            var form = this
-            var rowsel = t.column(0).checkboxes.selected();
-            $.each(rowsel, function(index, rowId) {
-                $(form).append(
-                    $('<input>').attr('type', 'hidden').attr('name', 'id[]').val(rowId)
-                )
-            });
+        // });
+        // $("#myform").on('submit', function(e) {
+        //     var form = this
+        //     var rowsel = t.column(0).checkboxes.selected();
+        //     $.each(rowsel, function(index, rowId) {
+        //         $(form).append(
+        //             $('<input>').attr('type', 'hidden').attr('name', 'id[]').val(rowId)
+        //         )
+        //     });
 
-            if (rowsel.join(",") == "") {
-                alertify.alert('', 'Tidak ada data terpilih!', function() {});
+        //     if (rowsel.join(",") == "") {
+        //         alertify.alert('', 'Tidak ada data terpilih!', function() {});
 
-            } else {
-                var prompt = alertify.confirm('Apakah anda yakin akan menghapus data tersebut?', 'Apakah anda yakin akan menghapus data tersebut?').set('labels', {
-                    ok: 'Yakin',
-                    cancel: 'Batal!'
-                }).set('onok', function(closeEvent) {
-                    $.ajax({
-                        url: "subject/deletebulk",
-                        type: "post",
-                        data: "msg = " + rowsel.join(","),
-                        success: function(response) {
-                            if (response == true) {
-                                location.reload();
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log(textStatus, errorThrown);
-                        }
-                    });
+        //     } else {
+        //         var prompt = alertify.confirm('Apakah anda yakin akan menghapus data tersebut?', 'Apakah anda yakin akan menghapus data tersebut?').set('labels', {
+        //             ok: 'Yakin',
+        //             cancel: 'Batal!'
+        //         }).set('onok', function(closeEvent) {
+        //             $.ajax({
+        //                 url: "subject/deletebulk",
+        //                 type: "post",
+        //                 data: "msg = " + rowsel.join(","),
+        //                 success: function(response) {
+        //                     if (response == true) {
+        //                         location.reload();
+        //                     }
+        //                 },
+        //                 error: function(jqXHR, textStatus, errorThrown) {
+        //                     console.log(textStatus, errorThrown);
+        //                 }
+        //             });
 
-                });
-            }
-            $(".ajs-header").html("Konfirmasi");
-        });
+        //         });
+        //     }
+        //     $(".ajs-header").html("Konfirmasi");
+        // });
         $('#add_button').click(function() {
             $('#form')[0].reset();
             $('.modal-title').text("Tambah Mata Pelajaran");

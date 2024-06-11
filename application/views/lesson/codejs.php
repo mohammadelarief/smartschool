@@ -1,4 +1,24 @@
 <script type="text/javascript">
+    let periode = $("#name_period").val(),
+        kls = $("#idkelas").val()
+    $('#name_period').change(function() {
+        $("#filter_get").click();
+        getkelasfilter();
+    });
+    $('#idkelas').change(function() {
+        $("#filter_get").click();
+    });
+    $('#filter_get').click(function() {
+        periode = $("#name_period").val();
+        kls = $("#idkelas").val();
+        t.ajax.reload();
+    });
+    $('#reset_filter').click(function() {
+        $("#idkelas").val('all').trigger("change");
+        periode = $("#name_period").val();
+        kls = $("#idkelas").val();
+        t.ajax.reload();
+    });
     $(document).ready(function() {
         $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings) {
             return {
@@ -31,7 +51,12 @@
             serverSide: true,
             ajax: {
                 "url": "lesson/json",
-                "type": "POST"
+                "type": "POST",
+                data: function(data) {
+                    data.periode = periode;
+                    data.kls = kls;
+                    return data;
+                }
             },
             columns: [{
                     "data": "idlesson",
@@ -83,45 +108,46 @@
                 $('td:eq(1)', row).html(index);
             }
         });
-        $('#myform').keypress(function(e) {
-            if (e.which == 13) return false;
+        getkelasfilter();
+        // $('#myform').keypress(function(e) {
+        //     if (e.which == 13) return false;
 
-        });
-        $("#myform").on('submit', function(e) {
-            var form = this
-            var rowsel = t.column(0).checkboxes.selected();
-            $.each(rowsel, function(index, rowId) {
-                $(form).append(
-                    $('<input>').attr('type', 'hidden').attr('name', 'id[]').val(rowId)
-                )
-            });
+        // });
+        // $("#myform").on('submit', function(e) {
+        //     var form = this
+        //     var rowsel = t.column(0).checkboxes.selected();
+        //     $.each(rowsel, function(index, rowId) {
+        //         $(form).append(
+        //             $('<input>').attr('type', 'hidden').attr('name', 'id[]').val(rowId)
+        //         )
+        //     });
 
-            if (rowsel.join(",") == "") {
-                alertify.alert('', 'Tidak ada data terpilih!', function() {});
+        //     if (rowsel.join(",") == "") {
+        //         alertify.alert('', 'Tidak ada data terpilih!', function() {});
 
-            } else {
-                var prompt = alertify.confirm('Apakah anda yakin akan menghapus data tersebut?', 'Apakah anda yakin akan menghapus data tersebut?').set('labels', {
-                    ok: 'Yakin',
-                    cancel: 'Batal!'
-                }).set('onok', function(closeEvent) {
-                    $.ajax({
-                        url: "lesson/deletebulk",
-                        type: "post",
-                        data: "msg = " + rowsel.join(","),
-                        success: function(response) {
-                            if (response == true) {
-                                location.reload();
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log(textStatus, errorThrown);
-                        }
-                    });
+        //     } else {
+        //         var prompt = alertify.confirm('Apakah anda yakin akan menghapus data tersebut?', 'Apakah anda yakin akan menghapus data tersebut?').set('labels', {
+        //             ok: 'Yakin',
+        //             cancel: 'Batal!'
+        //         }).set('onok', function(closeEvent) {
+        //             $.ajax({
+        //                 url: "lesson/deletebulk",
+        //                 type: "post",
+        //                 data: "msg = " + rowsel.join(","),
+        //                 success: function(response) {
+        //                     if (response == true) {
+        //                         location.reload();
+        //                     }
+        //                 },
+        //                 error: function(jqXHR, textStatus, errorThrown) {
+        //                     console.log(textStatus, errorThrown);
+        //                 }
+        //             });
 
-                });
-            }
-            $(".ajs-header").html("Konfirmasi");
-        });
+        //         });
+        //     }
+        //     $(".ajs-header").html("Konfirmasi");
+        // });
         $('#add_button').click(function() {
             $('#form')[0].reset();
             $('.modal-title').text("Tambah Pelajaran");
@@ -198,6 +224,29 @@
         });
         $(".ajs-header").html("Konfirmasi");
         return false;
+    }
+
+    function getkelasfilter() {
+        $.ajax({
+            url: "<?php echo base_url(); ?>Helpers/get_filter_kelas",
+            method: "POST",
+            data: {
+                periode: periode
+            },
+            async: false,
+            dataType: 'json',
+            success: function(data) {
+                var html = '';
+                var i;
+
+                html += '<option value="all" selected="selected">[SEMUA KELAS]</option>';
+                for (i = 0; i < data.length; i++) {
+                    html += '<option value=' + data[i].idclass + '>' + data[i].name_class + '</option>';
+                }
+                $('#idkelas').html(html);
+            }
+        });
+        $("#filter_get").click();
     }
 
     // for edit_data
