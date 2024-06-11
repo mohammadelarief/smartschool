@@ -18,10 +18,10 @@ class Cfg_timetable_model extends CI_Model
     // datatables
     function json()
     {
-        $this->datatables->select('id,idtimetable,period_id,semester_id,keterangan,status');
-        $this->datatables->from('cfg_timetable');
+        $this->datatables->select('c.id,c.idtimetable,c.period_id,c.semester_id,c.keterangan,c.status,s.description');
+        $this->datatables->from('cfg_timetable c');
         //add this line for join
-        //$this->datatables->join('table2', 'cfg_timetable.field = table2.field');
+        $this->datatables->join('semester s', 's.idsemester = c.semester_id');
         $this->datatables->add_column('action', anchor(site_url('timetable/timetable/$2'), '<i class="fas fa-book-reader"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Jadwal"') . "  " . '<button onclick="return edit_data(\'$1\')" class="btn btn-xs btn-warning item_edit" data-id="$1"><i class="fa fa-edit"></i></button>', 'id,idtimetable');
         return $this->datatables->generate();
     }

@@ -48,7 +48,7 @@
                 {
                     "data": "period_id"
                 }, {
-                    "data": "semester_id"
+                    "data": "description"
                 }, {
                     "data": "keterangan"
                 }, {

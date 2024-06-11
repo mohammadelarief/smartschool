@@ -36,6 +36,8 @@
     <script src="<?= base_url('assets/plugins/jquery-nestable/jquery.nestable.js'); ?>"></script>
     <script src="<?= base_url('assets/plugins/alertify/alertify.js'); ?>"></script>
     <script src="<?= base_url('assets/plugins/bootstrap-show-password/bootstrap-show-password.min.js'); ?>"></script>
+    <!-- Select2 -->
+    <script src="<?= base_url('assets/bower_components/bootstrap-select/js/bootstrap-select.js'); ?>"></script>
     <!-- menu funct -->
     <script src="<?= base_url('assets/dist/js/menu.js'); ?>"></script>
     <script type="text/javascript">
