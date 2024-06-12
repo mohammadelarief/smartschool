@@ -1,6 +1,6 @@
 <style>
     .subject-name {
-        font-size: 0.75em;
+        font-size: 0.55em;
         /* Ukuran teks h6 */
     }
 
@@ -94,7 +94,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th class="text-center" rowspan="2" width="80px">Kelas</th>
+                                    <th class="text-center" style="vertical-align : middle;text-align:center;" rowspan="2" width="80px">Kelas</th>
                                     <?php
                                     foreach ($days as $index => $day) {
                                         echo "<th class='text-center day-header day-$index' colspan='10'>$day</th>";
@@ -114,7 +114,7 @@
                             <tbody>
                                 <?php foreach ($classes as $class) : ?>
                                     <tr class="<?= $class->jenjang ?>">
-                                        <td class="text-center"><?= $class->name_class ?></td>
+                                        <td class="text-center" style="vertical-align : middle;text-align:center;"><?= $class->name_class ?></td>
                                         <?php
                                         for ($dayIndex = 0; $dayIndex < 6; $dayIndex++) { // 6 hari dalam seminggu
                                             for ($i = 1; $i <= 10; $i++) {
