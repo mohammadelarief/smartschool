@@ -7,7 +7,6 @@ user_guide/*
 
 application/logs/*
 !application/logs/index.html
-application/config/database.php
 
 !application/*/.htaccess
 
@@ -36,3 +35,4 @@ tamacms.sql
 TEMPLATE.sql
 ma.sql
 ma.zip
+application/config/database.php
