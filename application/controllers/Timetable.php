@@ -15,6 +15,7 @@ class Timetable extends CI_Controller
         $this->load->model('Cfg_timetable_model');
         $this->load->library('form_validation');
         $this->load->library('datatables');
+        $this->load->library('pdf');
     }
 
     public function index()
@@ -110,6 +111,25 @@ class Timetable extends CI_Controller
         ];
         $data['code_js'] = 'timetable/codejs';
         $data['page'] = 'timetable/index';
+        $data['jenjang'] = $this->Timetable_model->get_all_jenjang_classes();
+        $classes = $this->Timetable_model->get_all_classes(); // Mengambil semua kelas
+        $data['classes'] = $classes;
+        foreach ($classes as $class) {
+            $data['subjects'][$class->idclass] = $this->Timetable_model->get_subjects_by_class($class->idclass);
+        }
+        $data['schedule'] = $this->Timetable_model->get_all_timetable($id);
+        // $data['modal'] = 'timetable/Subject_modal';
+        $this->load->view('template/backend', $data);
+    }
+    public function print($id)
+    {
+        $data['title'] = 'Subject';
+        $data['subtitle'] = '';
+        $data['crumb'] = [
+            'Subject' => '',
+        ];
+        $data['code_js'] = 'timetable/codejs';
+        $data['page'] = 'timetable/print';
         $data['jenjang'] = $this->Timetable_model->get_all_jenjang_classes();
         $classes = $this->Timetable_model->get_all_classes(); // Mengambil semua kelas
         $data['classes'] = $classes;

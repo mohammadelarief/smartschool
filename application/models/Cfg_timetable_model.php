@@ -22,7 +22,7 @@ class Cfg_timetable_model extends CI_Model
         $this->datatables->from('cfg_timetable c');
         //add this line for join
         $this->datatables->join('semester s', 's.idsemester = c.semester_id');
-        $this->datatables->add_column('action', anchor(site_url('timetable/timetable/$2'), '<i class="fas fa-book-reader"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Jadwal"') . "  " . '<button onclick="return edit_data(\'$1\')" class="btn btn-xs btn-warning item_edit" data-id="$1"><i class="fa fa-edit"></i></button>', 'id,idtimetable');
+        $this->datatables->add_column('action', anchor(site_url('timetable/timetable/$2'), '<i class="fas fa-book-reader"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Jadwal"') . "  " . anchor(site_url('timetable/print/$2'), '<i class="fas fa-print"></i>', 'class="btn btn-xs btn-info"  data-toggle="tooltip" title="Print Jadwal"') . "  " . '<button onclick="return edit_data(\'$1\')" class="btn btn-xs btn-warning item_edit" data-id="$1"><i class="fa fa-edit"></i></button>', 'id,idtimetable');
         return $this->datatables->generate();
     }
 

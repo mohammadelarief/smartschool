@@ -1,14 +1,24 @@
 <style>
-    .day-column {
-        display: none;
+    .subject-name {
+        font-size: 0.75em;
+        /* Ukuran teks h6 */
+    }
+
+    .subject-fullname {
+        font-size: 0.85em;
+        /* Ukuran teks h5 */
+    }
+
+    @media print {
+        .no-print {
+            display: none;
+        }
     }
 
     thead th,
     tfoot td {
         background-color: #f2f2f2;
         /* Warna latar belakang untuk thead dan tfoot */
-        /* color: white; */
-        /* Warna teks putih untuk kontras */
     }
 
     tbody td:first-child {
@@ -18,6 +28,7 @@
         /* Menebalkan teks di kolom pertama */
         text-align: center;
         /* Rata kiri teks di kolom pertama */
+        vertical-align: middle;
     }
 
     tbody td.day-column {
@@ -43,7 +54,7 @@
             </div>
             <form id="schedule-form" method="post" action="<?= site_url('timetable/save_timetable') ?>">
                 <div class="box-body">
-                    <div class="col-md-12">
+                    <div class="col-md-12 no-print">
                         <?php
                         $segment1 = $this->uri->segment(3);
                         ?>
@@ -102,7 +113,7 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($classes as $class) : ?>
-                                    <tr class="<?= $class->jenjang ?> text-center">
+                                    <tr class="<?= $class->jenjang ?>">
                                         <td class="text-center"><?= $class->name_class ?></td>
                                         <?php
                                         for ($dayIndex = 0; $dayIndex < 6; $dayIndex++) { // 6 hari dalam seminggu
@@ -114,45 +125,30 @@
                                                         break;
                                                     }
                                                 }
-                                                // echo $selected_subject;
-                                                echo "<td class='day-column day-$dayIndex' width='80px'>
-                                                <select class='form-control' name='schedule[{$class->idclass}][$dayIndex][$i]'>
-                                                    <option value='' selected disabled hidden></option>
-                                                    <option value='Istirahat' " . ($selected_subject == 'Istirahat' ? 'selected' : '') . ">Istirahat</option>
-                                                    <option value='Pulang' " . ($selected_subject == 'Pulang' ? 'selected' : '') . ">Pulang</option>";
-                                                foreach ($subjects[$class->idclass] as $subject) {
-                                                    $selected = ($subject->idlesson == $selected_subject) ? 'selected' : '';
-                                                    echo "<option value='{$subject->idlesson}' $selected>{$subject->full_name} | {$subject->name}</option>";
+                                                echo "<td class='text-center day-column day-$dayIndex' width='80px'>";
+                                                if ($selected_subject == 'Istirahat' || $selected_subject == 'Pulang') {
+                                                    echo "<div><h5>{$selected_subject}</h5></div>";
+                                                } else {
+                                                    foreach ($subjects[$class->idclass] as $subject) {
+                                                        if ($subject->idlesson == $selected_subject) {
+                                                            echo "<div><h5>{$subject->full_name}</h5><h6>{$subject->name}</h6></div>";
+                                                            break;
+                                                        }
+                                                    }
                                                 }
-                                                echo "  </select>
-                                              </td>";
+                                                echo "</td>";
                                             }
                                         }
                                         ?>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td>Set Seluruh Hari</td>
-                                    <?php for ($dayIndex = 0; $dayIndex < 6; $dayIndex++) { ?>
-                                        <?php for ($i = 1; $i <= 10; $i++) { ?>
-                                            <td class="day-column day-<?= $dayIndex ?>" width="80px">
-                                                <select class="form-control footer-select" data-day="<?= $dayIndex ?>" data-period="<?= $i ?>">
-                                                    <option value='' selected disabled hidden></option>
-                                                    <option value='Istirahat'>Istirahat</option>
-                                                    <option value='Pulang'>Pulang</option>
-                                                </select>
-                                            </td>
-                                        <?php } ?>
-                                    <?php } ?>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Simpan Jadwal</button>
+                    <button class="btn btn-primary no-print" onclick="window.print()">Cetak</button>
+                    <!-- <button type="submit" class="btn btn-primary">Simpan Jadwal</button> -->
                 </div>
             </form>
         </div>
