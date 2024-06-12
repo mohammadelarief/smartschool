@@ -8,7 +8,7 @@ class Dashboard extends CI_Controller
 	{
 		parent::__construct();
 		$this->layout->auth();
-		// $this->layout->validate_token();
+		$this->load->model('Dashboard_model');
 	}
 
 	public function index()
@@ -18,7 +18,7 @@ class Dashboard extends CI_Controller
 		$data['crumb'] = [
 			'Dashboard' => '',
 		];
-		// $user_conditions = ;
+		
 		$data['count'] = array(
 			'pegawai' => array(
 				'jml' => get_count('employee', array('status' => '1')),
@@ -26,12 +26,21 @@ class Dashboard extends CI_Controller
 				'url' => base_url('employment')
 			),
 			'siswa' => array(
-				'jml' => get_count('person', array('status' => '1')),
+				'jml' => $this->Dashboard_model->get_student_period(),
 				'text' => 'Siswa',
 				'url' => base_url('student')
+			),
+			'kelas' => array(
+				'jml' => $this->Dashboard_model->get_class_period(),
+				'text' => 'Kelas',
+				'url' => base_url('classes')
 			)
 		);
-		$data['code_js'] = 'Dashboard/codejs';
+		$data['tapel'] = array(
+			'periode' => 'Tahun Pelajaran ' . get_data_custom('period', array('status' => '1'), array('description')),
+			'semester' => 'Semester ' . get_data_custom('semester', array('status' => '1'), array('description'))
+		);
+		// $data['code_js'] = 'Dashboard/codejs';
 		$data['page'] = 'Dashboard/Index';
 		$this->load->view('template/backend', $data);
 	}

@@ -299,7 +299,7 @@ if (!function_exists('get_count')) {
 
         if (!empty($joins)) {
             foreach ($joins as $join) {
-                $CI->db->join($join['table'], $join['condition'], isset($join['type']) ? $join['type'] : 'inner');
+                $CI->db->join($join['table'], $join['condition'], isset($join['type']) ? $join['type'] : '');
             }
         }
 
@@ -308,6 +308,39 @@ if (!function_exists('get_count')) {
         }
 
         return $CI->db->count_all_results($table);
+    }
+}
+if (!function_exists('get_data_custom')) {
+    function get_data_custom($table, $conditions = array(), $select_fields = array())
+    {
+        $CI = &get_instance();
+        $CI->load->database();
+
+        // Menentukan field yang akan di-select
+        if (!empty($select_fields)) {
+            $CI->db->select(implode(',', $select_fields));
+        } else {
+            $CI->db->select('*');
+        }
+
+        // Menambahkan kondisi ke query
+        if (!empty($conditions)) {
+            $CI->db->where($conditions);
+        }
+
+        // Mendapatkan data dari database
+        $query = $CI->db->get($table);
+
+        // Mengembalikan hasil query
+        $result_text = '';
+        foreach ($query->result() as $row) {
+            foreach ($select_fields as $field) {
+                $result_text .= $row->$field . " "; // Menambahkan spasi sebagai pemisah
+            }
+            $result_text .= "\n"; // Menambahkan baris baru untuk setiap record
+        }
+
+        return trim($result_text);
     }
 }
 if (!function_exists('get_session_data')) {

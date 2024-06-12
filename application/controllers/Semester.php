@@ -39,9 +39,15 @@ class Semester extends CI_Controller
     public function update_status()
     {
         $id = $this->input->post('id');
-        if ($id) {
-            $this->Semester_model->activate_semester($id);
-            echo json_encode(['status' => 'success']);
+        $period = $this->input->post('period');
+        $row = $this->Semester_model->get_by_period($period);
+        if ($row) {
+            if ($row->status == 1) {
+                $this->Semester_model->activate_semester($id);
+                echo json_encode(['status' => 'success']);
+            } else {
+                echo json_encode(['status' => 'reject', 'message' => 'Status Periode sedang tidak Aktif']);
+            }
         } else {
             echo json_encode(['status' => 'error']);
         }

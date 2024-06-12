@@ -147,18 +147,23 @@
                 url: "<?= base_url('semester/update_status') ?>",
                 type: "POST",
                 data: {
-                    id: data.idsemester
+                    id: data.idsemester,
+                    period: data.period_id
                 },
                 success: function(response) {
                     var result = JSON.parse(response);
                     if (result.status === 'success') {
                         t.ajax.reload();
                     } else {
-                        alert('Error updating status');
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.error('<a style="color:white">' + result.message +
+                            '</a>');
+                        // alert('Error updating status');
                     }
                 }
             });
         });
+
         $('#add_button').click(function() {
             $('#form')[0].reset();
             $('.modal-title').text("Tambah semester");
