@@ -20,18 +20,17 @@
       </div>
 
       <div class="box-body">
-
+        <?php (isset($filter) ? $this->load->view($filter) : ""); ?>
         <form id="myform" method="post" onsubmit="return false">
 
           <div class="row" style="margin-bottom: 10px">
-            <div class="col-xs-12 col-md-4"><a href="#" id="add_button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#ModalaForm"><span class="fa fa-plus"></span> Create</a></div>
+            <div class="col-xs-12 col-md-4"></div>
             <div class="col-xs-12 col-md-4 text-center">
               <div style="margin-top: 4px" id="message">
 
               </div>
             </div>
             <div class="col-xs-12 col-md-4 text-right">
-              <a href="#" id="import_button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#ModalaImport"><span class="fas fa-cloud-upload-alt"></span> Import</a>
             </div>
           </div>
           <div class="table-responsive">

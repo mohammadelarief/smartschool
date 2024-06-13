@@ -32,10 +32,52 @@ class Employment extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
+    public function group()
+    {
+        $data['title'] = 'Employment';
+        $data['subtitle'] = '';
+        $data['crumb'] = [
+            'Employment' => '',
+        ];
+        $data['code_js'] = 'employment/codejs';
+        $data['page'] = 'employment/Employment_list_group';
+        $data['modal'] = 'employment/Employment_modal';
+        $data['filter'] = 'template/filter';
+        $get_prov = $this->db->select('*')->from('ind_provinsi')->get();
+        $data['provinsi_ind'] = $get_prov->result();
+        $this->load->view('template/backend', $data);
+    }
+
+    public function status()
+    {
+        $data['title'] = 'Employment';
+        $data['subtitle'] = '';
+        $data['crumb'] = [
+            'Employment' => '',
+        ];
+        $data['code_js'] = 'employment/codejs';
+        $data['page'] = 'employment/Employment_list_status';
+        $data['modal'] = 'employment/Employment_modal';
+        $data['filter'] = 'template/filter';
+        $get_prov = $this->db->select('*')->from('ind_provinsi')->get();
+        $data['provinsi_ind'] = $get_prov->result();
+        $this->load->view('template/backend', $data);
+    }
+
     public function json()
     {
         header('Content-Type: application/json');
         echo $this->Employment_model->json();
+    }
+    public function json_group()
+    {
+        header('Content-Type: application/json');
+        echo $this->Employment_model->json_group();
+    }
+    public function json_status()
+    {
+        header('Content-Type: application/json');
+        echo $this->Employment_model->json_status();
     }
 
     public function json_get()
@@ -43,7 +85,10 @@ class Employment extends CI_Controller
         $id = $this->input->post("id");
         $row = $this->Employment_model->get_by_id($id);
         $row_detail = $this->Employment_detail_model->get_by_id($id);
-        $combined_row = array_merge((array) $row, (array) $row_detail);
+        // $numberid = $row->numberid;
+        $id_groupss = $this->db->query("select GROUP_CONCAT(group_id) as group_id from employee_group where numberid = '$row->numberid'")->row();
+        $group_employement = $this->db->query("select GROUP_CONCAT(description) as description from employement_group where numberid = '$row->numberid'")->row();
+        $combined_row = array_merge((array) $row, (array) $row_detail, (array) $id_groupss, (array) $group_employement);
 
         echo json_encode($combined_row);
     }
@@ -69,7 +114,7 @@ class Employment extends CI_Controller
                     'nip' => $this->input->post('nip', TRUE),
                     'nipy' => $this->input->post('nipy', TRUE),
                     'gender' => $this->input->post('gender', TRUE),
-                    'status' => $this->input->post('status', TRUE),
+                    // 'status' => '1',
                 );
 
                 $data_detail = array(
@@ -95,9 +140,23 @@ class Employment extends CI_Controller
                     'name_mother' => $this->input->post('name_mother', TRUE),
                     'npwp' => $this->input->post('npwp', TRUE),
                     'position' => $this->input->post('position', TRUE),
-                    'status_employment' => $this->input->post('status_employment', TRUE),
+                    // 'status_employment' => $this->input->post('status_employment', TRUE),
                 );
                 $this->db->trans_begin();
+                $numberid = $this->input->post('numberid', TRUE);
+                $period = get_value_table_one_field('period', 'name_period', array('status' => '1'));
+                $query = $this->db->query("delete from employee_group where numberid = '$numberid' and period_id = '$period'");
+                $id_groups = explode(",", $this->input->post('id_groupss', TRUE));
+                foreach ($id_groups as $key => $value) {
+
+                    $this->db->query("insert into employee_group values ('$period','$numberid','$value')");
+                }
+                $query = $this->db->query("delete from employement_group where numberid = '$numberid' and period_id = '$period'");
+                $group_employement = explode(",", $this->input->post('group_employments', TRUE));
+                foreach ($group_employement as $key => $value) {
+
+                    $this->db->query("insert into employement_group values ('$period','$numberid','$value')");
+                }
                 $this->Employment_model->update($id, $data);
                 $this->Employment_detail_model->update($nis, $data_detail);
                 if ($this->db->trans_status() === FALSE) {
@@ -120,7 +179,7 @@ class Employment extends CI_Controller
                     'nip' => $this->input->post('nip', TRUE),
                     'nipy' => $this->input->post('nipy', TRUE),
                     'gender' => $this->input->post('gender', TRUE),
-                    'status' => $this->input->post('status', TRUE),
+                    'status' => '1',
                 );
                 $data_detail = array(
                     'person_id' => $this->input->post('numberid', TRUE),
@@ -145,9 +204,23 @@ class Employment extends CI_Controller
                     'name_mother' => $this->input->post('name_mother', TRUE),
                     'npwp' => $this->input->post('npwp', TRUE),
                     'position' => $this->input->post('position', TRUE),
-                    'status_employment' => $this->input->post('status_employment', TRUE),
+                    // 'status_employment' => $this->input->post('status_employment', TRUE),
                 );
                 $this->db->trans_begin();
+                $numberid = $this->input->post('numberid', TRUE);
+                $period = get_value_table_one_field('period', 'name_period', array('status' => '1'));
+                $query = $this->db->query("delete from employee_group where numberid = '$numberid' and period_id = '$period'");
+                $id_groups = explode(",", $this->input->post('id_groupss', TRUE));
+                foreach ($id_groups as $key => $value) {
+
+                    $this->db->query("insert into employee_group values ('$period','$numberid','$value')");
+                }
+                $query = $this->db->query("delete from employement_group where numberid = '$numberid' and period_id = '$period'");
+                $group_employement = explode(",", $this->input->post('group_employments', TRUE));
+                foreach ($group_employement as $key => $value) {
+
+                    $this->db->query("insert into employement_group values ('$period','$numberid','$value')");
+                }
                 $this->Employment_model->insert($data);
                 $this->Employment_detail_model->insert($data_detail);
                 if ($this->db->trans_status() === FALSE) {
@@ -328,10 +401,10 @@ class Employment extends CI_Controller
     {
         $this->form_validation->set_rules('name', 'name', 'trim|required');
         $this->form_validation->set_rules('numberid', 'numberid', 'trim|required');
-        $this->form_validation->set_rules('nip', 'nip', 'trim|required');
-        $this->form_validation->set_rules('nipy', 'nipy', 'trim|required');
+        $this->form_validation->set_rules('nip', 'nip', 'trim');
+        $this->form_validation->set_rules('nipy', 'nipy', 'trim');
         $this->form_validation->set_rules('gender', 'gender', 'trim|required');
-        $this->form_validation->set_rules('status', 'status', 'trim|required');
+        $this->form_validation->set_rules('status', 'status', 'trim');
 
         $this->form_validation->set_rules('date_born', 'date born', 'trim');
         $this->form_validation->set_rules('where_born', 'where born', 'trim');

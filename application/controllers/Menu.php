@@ -90,7 +90,7 @@ class Menu extends CI_Controller
             'Dashboard' => '',
         ];
         $data["groups"] = $this->db->query("select * from `groups`")->result();
-        $data['parent'] = $this->db->query("select id_menu, label from menu ORDER BY level ASC, sort ASC")->result();;
+        $data['parent'] = $this->db->query("select id_menu, label from menu ORDER BY level ASC, sort ASC")->result();
         $data['code_js'] = 'menu/codejsform';
         $data['page'] = 'menu/menu_form';
         $this->load->view('template/backend', $data);

@@ -10,21 +10,6 @@
 </div>
 <div class="row">
   <div class="col-lg-3 col-xs-6">
-    <div class="small-box bg-yellow">
-      <div class="inner">
-        <h3><?= $count['pegawai']['jml'] ?></h3>
-
-        <p><?= $count['pegawai']['text']; ?></p>
-      </div>
-      <div class="icon">
-        <i class="fas fa-user-tie"></i>
-      </div>
-      <a href="<?= $count['pegawai']['url']; ?>" class="small-box-footer">
-        More info <i class="fa fa-arrow-circle-right"></i>
-      </a>
-    </div>
-  </div>
-  <div class="col-lg-3 col-xs-6">
     <div class="small-box bg-aqua">
       <div class="inner">
         <h3><?= $count['siswa']['jml'] ?></h3>
@@ -50,6 +35,37 @@
         <i class="fa fa-fw fa-building"></i>
       </div>
       <a href="<?= $count['kelas']['url']; ?>" class="small-box-footer">
+        More info <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-xs-6">
+    <div class="small-box bg-yellow">
+      <div class="inner">
+        <h3><?= $count['pegawai']['jml'] ?></h3>
+
+        <p><?= $count['pegawai']['text']; ?></p>
+      </div>
+      <div class="icon">
+        <i class="fas fa-user-tie"></i>
+      </div>
+      <a href="<?= $count['pegawai']['url']; ?>" class="small-box-footer">
+        More info <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-xs-6">
+    <div class="small-box bg-green">
+      <div class="inner">
+        <h3><?= $count['guru']['jml'] ?></h3>
+
+        <p><?= $count['guru']['text']; ?></p>
+      </div>
+      <div class="icon">
+        <i class="fas fa-user-tie"></i>
+      </div>
+      <a href="<?= $count['guru']['url']; ?>" class="small-box-footer">
         More info <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>

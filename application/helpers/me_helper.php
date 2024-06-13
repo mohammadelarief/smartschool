@@ -365,3 +365,22 @@ if (!function_exists('get_session_data')) {
         }
     }
 }
+if (!function_exists('get_value_table_one_field')) {
+    function get_value_table_one_field($table, $column, $where)
+    {
+        $CI = &get_instance();
+        $CI->load->database();
+
+        $CI->db->select($column);
+        $CI->db->from($table);
+        $CI->db->where($where);
+        $query = $CI->db->get();
+
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            return $row->$column;
+        } else {
+            return '';
+        }
+    }
+}

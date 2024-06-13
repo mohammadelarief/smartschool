@@ -17,7 +17,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-xs-3">NIL</label>
+                                <label class="control-label col-xs-3">NIK</label>
                                 <div class="col-xs-9">
                                     <input type="text" name="numberid" id="numberid" class="form-control" placeholder="Numberid" />
                                 </div>
@@ -83,17 +83,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-xs-3">Status</label>
+                                <label class="control-label col-xs-3">Grup</label>
                                 <div class="col-xs-9">
-                                    <?php
-                                    $options = array(
-                                        1 => 'Aktif',
-                                        0 => 'Nonaktif'
-                                    );
-                                    echo select_input('status', 'status', $options);
-                                    ?>
-                                    <!-- <input type="text" name="status" id="status" class="form-control" placeholder="Status" /> -->
+                                    <select class="form-control selectpicker" multiple="multiple" data-placeholder="Select a Groups" style="width: 100%;" name="id_groups" id="id_groups" data-live-search="true" data-selected="1,2" onchange="getvalgroup(this)">
+                                        <option value="1">Guru</option>
+                                        <option value="2">Struktural</option>
+
+                                    </select>
                                 </div>
+                                <input type="hidden" id="id_groupss" name="id_groupss" class="form-control"></input>
                             </div>
                             <div class="row">
                                 <div class="col-xs-6">
@@ -120,7 +118,15 @@
                                     <div class="form-group">
                                         <label class="control-label col-xs-3">Status Employment</label>
                                         <div class="col-xs-9">
-                                            <input type="text" name="status_employment" id="status_employment" class="form-control" placeholder="Status Employment" />
+                                            <select class="form-control selectpicker" multiple="multiple" data-placeholder="Select a Groups" style="width: 100%;" name="group_employment" id="group_employment" data-live-search="true" data-selected="1,2" onchange="getvalemployement(this)">
+                                                <option value="GTT">GTT</option>
+                                                <option value="GTY">GTY</option>
+                                                <option value="PTT">PTT</option>
+                                                <option value="PTY">PTY</option>
+
+                                            </select>
+                                            <input type="hidden" id="group_employments" name="group_employments" class="form-control"></input>
+                                            <!-- <input type="text" name="status_employment" id="status_employment" class="form-control" placeholder="Status Employment" /> -->
                                         </div>
                                     </div>
                                 </div>

@@ -21,8 +21,13 @@ class Dashboard extends CI_Controller
 		
 		$data['count'] = array(
 			'pegawai' => array(
-				'jml' => get_count('employee', array('status' => '1')),
-				'text' => 'Guru & Pegawai',
+				'jml' => $this->Dashboard_model->get_employee_period(),
+				'text' => 'Pegawai',
+				'url' => base_url('employment')
+			),
+			'guru' => array(
+				'jml' => $this->Dashboard_model->get_teacher_period(),
+				'text' => 'Guru',
 				'url' => base_url('employment')
 			),
 			'siswa' => array(

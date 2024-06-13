@@ -1,5 +1,26 @@
 <script type="text/javascript">
     var previewData = [];
+    let periode = $("#name_period").val(),
+        group = $("#idgroup").val(),
+        status_ = $("#idstatus").val()
+    $('#name_period').change(function() {
+        $("#filter_get").click();
+    });
+    $('#idgroup, #idstatus').change(function() {
+        $("#filter_get").click();
+    });
+    $('#filter_get').click(function() {
+        periode = $("#name_period").val();
+        group = $("#idgroup").val();
+        status_ = $("#idstatus").val();
+        t.ajax.reload();
+    });
+    $('#reset_filter').click(function() {
+        periode = $("#name_period").val();
+        group = $("#idgroup").val();
+        status_ = $("#idstatus").val();
+        t.ajax.reload();
+    });
     $(document).ready(function() {
         $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings) {
             return {
@@ -12,102 +33,329 @@
                 "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
             };
         };
-
-        t = $("#mytable").DataTable({
-            initComplete: function() {
-                var api = this.api();
-                $('#mytable_filter input')
-                    .off('.DT')
-                    .on('keyup.DT', function(e) {
-                        if (e.keyCode != 13) {
-                            api.search(this.value).draw();
-                        }
-                    });
-            },
-            oLanguage: {
-                sProcessing: "loading..."
-            },
-            scrollCollapse: true,
-            processing: true,
-            serverSide: true,
-            ajax: {
-                "url": "employment/json",
-                "type": "POST"
-            },
-            columns: [{
-                    "data": "idperson",
-                    "orderable": false,
-                    "className": "text-center"
-                },
-                {
-                    "data": "idperson",
-                    "orderable": false
-                }, {
-                    "data": "name",
-                    createdCell: function(td, cellData, data, row, col) {
-                        $(td).html('<a href="#" class="modal_detail" name="' + data.numberid + '" id="' + data.numberid + '" >' + data.name + '</a>');
-                    }
-                }, {
-                    "data": "numberid"
-                }, {
-                    "data": "nip"
-                }, {
-                    "data": "nipy"
-                }, {
-                    "data": "gender"
-                }, {
-                    "data": "status"
-                }
-                // ,                {
-                //     "data": "action",
-                //     "orderable": false,
-                //     "className": "text-center"
-                // }
-            ],
-            columnDefs: [{
-                    className: "text-center",
-                    targets: 0,
-                    checkboxes: {
-                        selectRow: true,
-                    }
-                },
-                {
-                    "targets": 7,
-                    "data": "",
-                    "mRender": function(data, type, row) {
-                        var text = "";
-                        if (type == "display") {
-                            if (data == "1") {
-                                text = "<button type='button' class='btn btn-success btn-xs'>Aktif</button>";
-                            } else {
-                                text = "<button type='button' class='btn btn-danger btn-xs'>Nonaktif</button>";
+        var lastUriSegment = window.location.pathname.split('/').pop();
+        if (lastUriSegment === 'group') {
+            t = $("#mytable").DataTable({
+                initComplete: function() {
+                    var api = this.api();
+                    $('#mytable_filter input')
+                        .off('.DT')
+                        .on('keyup.DT', function(e) {
+                            if (e.keyCode != 13) {
+                                api.search(this.value).draw();
                             }
-                            data = text
-                        }
+                        });
+                },
+                pageLength: 25,
+                oLanguage: {
+                    sProcessing: "loading..."
+                },
+                scrollCollapse: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    "url": "json_group",
+                    "type": "POST",
+                    data: function(data) {
+                        data.periode = periode;
+                        data.group = group;
                         return data;
+                    }
+                },
+                columns: [{
+                        "data": "numberid",
+                        "orderable": false,
+                        "className": "text-center"
                     },
-                }
+                    {
+                        "data": "numberid",
+                        "orderable": false
+                    }, {
+                        "data": "period_id",
+                        "className": "text-center"
+                    },
+                    {
+                        "data": "numberid",
+                        "orderable": false,
+                        "className": "text-center"
+                    }, {
+                        "data": "name",
+                        createdCell: function(td, cellData, data, row, col) {
+                            $(td).html('<a href="#" class="modal_detail" name="' + data.numberid + '" id="' + data.numberid + '" >' + data.name + '</a>');
+                        }
+                    }, {
+                        "data": "name_group",
+                        "className": "text-center"
+                    }, {
+                        "data": "gender",
+                        "className": "text-center"
+                    }, {
+                        "data": "status",
+                        "className": "text-center"
+                    }
+                    // ,                {
+                    //     "data": "action",
+                    //     "orderable": false,
+                    //     "className": "text-center"
+                    // }
+                ],
+                columnDefs: [{
+                        className: "text-center",
+                        targets: 0,
+                        checkboxes: {
+                            selectRow: true,
+                        }
+                    },
+                    {
+                        "targets": 7,
+                        "data": "",
+                        "mRender": function(data, type, row) {
+                            var text = "";
+                            if (type == "display") {
+                                if (data == "1") {
+                                    text = "<button type='button' class='btn btn-success btn-xs'>Aktif</button>";
+                                } else {
+                                    text = "<button type='button' class='btn btn-danger btn-xs'>Nonaktif</button>";
+                                }
+                                data = text
+                            }
+                            return data;
+                        },
+                    }
 
-            ],
-            select: {
-                style: 'multi'
-            },
-            order: [
-                [1, 'desc']
-            ],
-            rowCallback: function(row, data, iDisplayIndex) {
-                var info = this.fnPagingInfo();
-                var page = info.iPage;
-                var length = info.iLength;
-                var index = page * length + (iDisplayIndex + 1);
-                $('td:eq(1)', row).html(index);
-            }
-        });
-        t.on('click', '.modal_detail', function() {
-            var id = $(this).attr("id");
-            $('.modal-title').text("Ubah Data");
-            edit_data(id);
-        });
+                ],
+                select: {
+                    style: 'multi'
+                },
+                order: [
+                    [5, 'desc'],
+                    [4, 'asc']
+                ],
+                rowCallback: function(row, data, iDisplayIndex) {
+                    var info = this.fnPagingInfo();
+                    var page = info.iPage;
+                    var length = info.iLength;
+                    var index = page * length + (iDisplayIndex + 1);
+                    $('td:eq(1)', row).html(index);
+                }
+            });
+            t.on('click', '.modal_detail', function() {
+                var id = $(this).attr("id");
+                $('.modal-title').text("Ubah Data");
+                edit_data(id);
+            });
+        } else if (lastUriSegment === 'status') {
+            t = $("#mytable").DataTable({
+                initComplete: function() {
+                    var api = this.api();
+                    $('#mytable_filter input')
+                        .off('.DT')
+                        .on('keyup.DT', function(e) {
+                            if (e.keyCode != 13) {
+                                api.search(this.value).draw();
+                            }
+                        });
+                },
+                pageLength: 25,
+                oLanguage: {
+                    sProcessing: "loading..."
+                },
+                scrollCollapse: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    "url": "json_status",
+                    "type": "POST",
+                    data: function(data) {
+                        data.periode = periode;
+                        data.status = status_;
+                        return data;
+                    }
+                },
+                columns: [{
+                        "data": "numberid",
+                        "orderable": false,
+                        "className": "text-center"
+                    },
+                    {
+                        "data": "numberid",
+                        "orderable": false
+                    }, {
+                        "data": "period_id",
+                        "className": "text-center"
+                    },
+                    {
+                        "data": "numberid",
+                        "orderable": false,
+                        "className": "text-center"
+                    }, {
+                        "data": "name",
+                        createdCell: function(td, cellData, data, row, col) {
+                            $(td).html('<a href="#" class="modal_detail" name="' + data.numberid + '" id="' + data.numberid + '" >' + data.name + '</a>');
+                        }
+                    }, {
+                        "data": "description",
+                        "className": "text-center"
+                    }, {
+                        "data": "gender",
+                        "className": "text-center"
+                    }, {
+                        "data": "status",
+                        "className": "text-center"
+                    }
+                    // ,                {
+                    //     "data": "action",
+                    //     "orderable": false,
+                    //     "className": "text-center"
+                    // }
+                ],
+                columnDefs: [{
+                        className: "text-center",
+                        targets: 0,
+                        checkboxes: {
+                            selectRow: true,
+                        }
+                    },
+                    {
+                        "targets": 7,
+                        "data": "",
+                        "mRender": function(data, type, row) {
+                            var text = "";
+                            if (type == "display") {
+                                if (data == "1") {
+                                    text = "<button type='button' class='btn btn-success btn-xs'>Aktif</button>";
+                                } else {
+                                    text = "<button type='button' class='btn btn-danger btn-xs'>Nonaktif</button>";
+                                }
+                                data = text
+                            }
+                            return data;
+                        },
+                    }
+
+                ],
+                select: {
+                    style: 'multi'
+                },
+                order: [
+                    [5, 'desc'],
+                    [4, 'asc']
+                ],
+                rowCallback: function(row, data, iDisplayIndex) {
+                    var info = this.fnPagingInfo();
+                    var page = info.iPage;
+                    var length = info.iLength;
+                    var index = page * length + (iDisplayIndex + 1);
+                    $('td:eq(1)', row).html(index);
+                }
+            });
+            t.on('click', '.modal_detail', function() {
+                var id = $(this).attr("id");
+                $('.modal-title').text("Ubah Data");
+                edit_data(id);
+            });
+        } else {
+            t = $("#mytable").DataTable({
+                initComplete: function() {
+                    var api = this.api();
+                    $('#mytable_filter input')
+                        .off('.DT')
+                        .on('keyup.DT', function(e) {
+                            if (e.keyCode != 13) {
+                                api.search(this.value).draw();
+                            }
+                        });
+                },
+                pageLength: 25,
+                oLanguage: {
+                    sProcessing: "loading..."
+                },
+                scrollCollapse: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    "url": "employment/json",
+                    "type": "POST"
+                },
+                columns: [{
+                        "data": "idperson",
+                        "orderable": false,
+                        "className": "text-center"
+                    },
+                    {
+                        "data": "idperson",
+                        "orderable": false
+                    }, {
+                        "data": "name",
+                        createdCell: function(td, cellData, data, row, col) {
+                            $(td).html('<a href="#" class="modal_detail" name="' + data.numberid + '" id="' + data.numberid + '" >' + data.name + '</a>');
+                        }
+                    }, {
+                        "data": "numberid"
+                    }, {
+                        "data": "nip"
+                    }, {
+                        "data": "grup",
+                        "searchable": false
+                    }, {
+                        "data": "gender"
+                    }, {
+                        "data": "status"
+                    }
+                    // ,                {
+                    //     "data": "action",
+                    //     "orderable": false,
+                    //     "className": "text-center"
+                    // }
+                ],
+                columnDefs: [{
+                        className: "text-center",
+                        targets: 0,
+                        checkboxes: {
+                            selectRow: true,
+                        }
+                    },
+                    {
+                        "targets": 7,
+                        "data": "",
+                        "mRender": function(data, type, row) {
+                            var text = "";
+                            if (type == "display") {
+                                if (data == "1") {
+                                    text = "<button type='button' class='btn btn-success btn-xs'>Aktif</button>";
+                                } else {
+                                    text = "<button type='button' class='btn btn-danger btn-xs'>Nonaktif</button>";
+                                }
+                                data = text
+                            }
+                            return data;
+                        },
+                    }
+
+                ],
+                select: {
+                    style: 'multi'
+                },
+                order: [
+                    [1, 'desc']
+                ],
+                rowCallback: function(row, data, iDisplayIndex) {
+                    var info = this.fnPagingInfo();
+                    var page = info.iPage;
+                    var length = info.iLength;
+                    var index = page * length + (iDisplayIndex + 1);
+                    $('td:eq(1)', row).html(index);
+                }
+            });
+            t.on('click', '.modal_detail', function() {
+                var id = $(this).attr("id");
+                $('.modal-title').text("Ubah Data");
+                edit_data(id);
+            });
+        }
+
+
+
         $('#myform').keypress(function(e) {
             if (e.which == 13) return false;
         });
@@ -152,7 +400,6 @@
             $('#action').val("Add");
             $('#actions').val("Add");
         });
-
         $("#provinsi").change(function() {
             var url = "<?php echo site_url('Helpers/add_ajax_kab'); ?>/" + $(this).val();
             $('#kabupaten').load(url);
@@ -269,6 +516,14 @@
         $(".ajs-header").html("Konfirmasi");
         return false;
     }
+    // $("#id_groups").val("1,2");
+    function getvalgroup(div) {
+        $("#id_groupss").val($(div).val());
+    }
+
+    function getvalemployement(div) {
+        $("#group_employments").val($(div).val());
+    }
 
     function edit_data(id) {
         $("#myModalLabel").text("Ubah Employee");
@@ -289,6 +544,22 @@
                 $("[name='numberid']").val(data.numberid);
                 $("[name='nip']").val(data.nip);
                 $("[name='nipy']").val(data.nipy);
+                if (data.group_id === null) {
+                    $('#id_groups').selectpicker('val', []);
+                } else {
+                    var groupIds = data.group_id.split(',').map(function(id) {
+                        return id.trim();
+                    });
+                    $('#id_groups').selectpicker('val', groupIds);
+                }
+                if (data.description === null) {
+                    $('#group_employment').selectpicker('val', []);
+                } else {
+                    var groupIdss = data.description.split(',').map(function(id) {
+                        return id.trim();
+                    });
+                    $('#group_employment').selectpicker('val', groupIdss);
+                }
                 $("[name='status']").val(data.status);
                 var genders = data.gender;
                 if (genders == 'L') {
@@ -322,7 +593,7 @@
                 $("[name='name_mother']").val(data.name_mother);
                 $("[name='npwp']").val(data.npwp);
                 $("[name='position']").val(data.position);
-                $("[name='status_employment']").val(data.status_employment);
+                // $("[name='status_employment']").val(data.status_employment);
                 $('#action').val("Edit");
                 $('#actions').val("Edit");
             }
@@ -367,7 +638,7 @@
         $("[name='name_mother']").val("");
         $("[name='npwp']").val("");
         $("[name='position']").val("");
-        $("[name='status_employment']").val("");
+        // $("[name='status_employment']").val("");
         $(".form-group").toggleClass("has-success has-error", false);
         $(".text-danger").hide();
     }

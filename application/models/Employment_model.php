@@ -19,13 +19,57 @@ class Employment_model extends CI_Model
     // datatables
     function json()
     {
-        $this->datatables->select('idperson,name,numberid,nip,nipy,gender,status');
-        $this->datatables->from('employee');
+        $this->datatables->select('e.idperson,e.name,e.numberid,e.nip,e.nipy,e.gender,e.status,
+        (
+            select GROUP_CONCAT(ecg1.name_group) 
+            from employee_group eg1 
+            join employee_cfg_group ecg1 ON ecg1.id = eg1.group_id 
+            where eg1.numberid = e.numberid) as grup,
+        (
+            select GROUP_CONCAT(eg2.description) 
+            from employement_group eg2 
+            where eg2.numberid = e.numberid) as grup_employement
+            ');
+        $this->datatables->from('employee e');
         //add this line for join
-        //$this->datatables->join('table2', 'employee.field = table2.field');
+        // $this->datatables->join('employee_group eg', 'eg.numberid = e.numberid');
         $this->datatables->add_column('action', '<button onclick="return edit_data(\'$1\')" class="btn btn-xs btn-warning item_edit" data-id="$1"><i class="fa fa-edit"></i></button>' . "  " . anchor(site_url('employment/delete/$1'), '<i class="fa fa-trash"></i>', 'class="btn btn-xs btn-danger" onclick="return confirmdelete(\'employment/delete/$1\')" data-toggle="tooltip" title="Delete"'), 'numberid');
         return $this->datatables->generate();
     }
+    function json_group()
+    {
+        $periode = $this->input->post('periode');
+        $group = $this->input->post('group');
+        $this->datatables->select('eg.period_id, eg.numberid, ecg.name_group,e.name,e.gender,e.status
+            ');
+        $this->datatables->from('employee_group eg');
+        //add this line for join
+        $this->datatables->join('employee_cfg_group ecg', 'ecg.id = eg.group_id');
+        $this->datatables->join('employee e', 'e.numberid = eg.numberid');
+        $this->datatables->where("eg.period_id='{$periode}'");
+        if ($group != 'all') {
+            $this->datatables->where("ecg.id='{$group}'");
+        }
+        $this->datatables->add_column('action', '<button onclick="return edit_data(\'$1\')" class="btn btn-xs btn-warning item_edit" data-id="$1"><i class="fa fa-edit"></i></button>' . "  " . anchor(site_url('employment/delete/$1'), '<i class="fa fa-trash"></i>', 'class="btn btn-xs btn-danger" onclick="return confirmdelete(\'employment/delete/$1\')" data-toggle="tooltip" title="Delete"'), 'numberid');
+        return $this->datatables->generate();
+    }
+    function json_status()
+    {
+        $periode = $this->input->post('periode');
+        $status = $this->input->post('status');
+        $this->datatables->select('eg.period_id, eg.numberid, eg.description,e.name,e.gender,e.status
+            ');
+        $this->datatables->from('employement_group eg');
+        //add this line for join
+        $this->datatables->join('employee e', 'e.numberid = eg.numberid');
+        $this->datatables->where("eg.period_id='{$periode}'");
+        if ($status != 'all') {
+            $this->datatables->where("eg.description='{$status}'");
+        }
+        $this->datatables->add_column('action', '<button onclick="return edit_data(\'$1\')" class="btn btn-xs btn-warning item_edit" data-id="$1"><i class="fa fa-edit"></i></button>' . "  " . anchor(site_url('employment/delete/$1'), '<i class="fa fa-trash"></i>', 'class="btn btn-xs btn-danger" onclick="return confirmdelete(\'employment/delete/$1\')" data-toggle="tooltip" title="Delete"'), 'numberid');
+        return $this->datatables->generate();
+    }
+    
     public function upload_excel($file_path)
     {
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file_path);
